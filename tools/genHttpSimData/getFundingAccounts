@@ -1,0 +1,16 @@
+################################################################################
+#  getFundingAccounts (CCBP)
+################################################################################
+[HTTP,POST ,/CCBillPay/services,GetFundingAccountsRequest>,<ifidGuid>__USER_GUID__</ifidGuid>,<diId>__FIID__</diId>]
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 27 Mar 2011 22:10:31 GMT
+Server: Apache-Coyote/1.1
+Content-Type: text/xml;charset=UTF-8
+Client-Date: Sun, 27 Mar 2011 22:10:31 GMT
+Client-Peer: 172.18.218.38:8080
+Client-Response-Num: 1
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns7:GetFundingAccountsResponse xmlns:ns8="http://www.intuit.com/cc/bp/types" xmlns:ns7="http://www.intuit.com/cc/bp/funding" xmlns:ns6="http://www.intuit.com/cc/bp/bill" xmlns:ns5="http://www.intuit.com/cc/bp/brand" xmlns:ns4="http://www.intuit.com/cc/bp/payee" xmlns:ns3="http://www.intuit.com/cc/bp/payment" xmlns:ns2="http://www.intuit.com/cc/bp/biller"><status>SUCCESS</status><dataAsOf>2011-03-27T22:10:31.795Z</dataAsOf><messages /><msgId>a0afa0d8-8f12-4c5b-a45c-fb0ff5ddc98e</msgId><ns7:fundingAccounts><ns7:fundingAccount><id>17487693</id><primary>false</primary><nickName>Checking 1 __USER_GUID__</nickName><bankName>Midland States Bank</bankName><providerAccountNumber><micr>9548055009</micr></providerAccountNumber><routingNumber><rtn>081204540</rtn></routingNumber><bankAccountTypeEnum>CHECKING</bankAccountTypeEnum><fundingAccountStatus>APPROVED</fundingAccountStatus></ns7:fundingAccount><ns7:fundingAccount><id>17487692</id><primary>false</primary><nickName>Checking 2 __USER_GUID__</nickName><bankName>Midland States Bank</bankName><providerAccountNumber><micr>9548055008</micr></providerAccountNumber><routingNumber><rtn>081204540</rtn></routingNumber><bankAccountTypeEnum>CHECKING</bankAccountTypeEnum><fundingAccountStatus>APPROVED</fundingAccountStatus></ns7:fundingAccount><ns7:fundingAccount><id>17487691</id><primary>true</primary><nickName>Checking 3 __USER_GUID__</nickName><bankName>Midland States Bank</bankName><providerAccountNumber><micr>9548055007</micr></providerAccountNumber><routingNumber><rtn>081204540</rtn></routingNumber><bankAccountTypeEnum>CHECKING</bankAccountTypeEnum><fundingAccountStatus>APPROVED</fundingAccountStatus></ns7:fundingAccount></ns7:fundingAccounts></ns7:GetFundingAccountsResponse></soap:Body></soap:Envelope>
+[/HTTP]
+

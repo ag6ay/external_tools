@@ -1,0 +1,194 @@
+Attribute VB_Name = "importExpectedResults_Module"
+Option Explicit
+
+Sub importExpectedResults()
+
+'
+' appends to the end of the worksheet...
+' merging into the worksheet will be 'later'...
+'
+'
+
+
+    Dim importFile As String
+    Dim readString As String
+    
+    Dim columnName As String
+    Dim cellValue As String
+    
+    Dim loopEnd As Boolean
+    
+    Dim equalPos As Integer
+
+    Dim rowNumber As Integer
+    Dim columNumber As Integer
+    Dim columnMax As Integer
+    
+    Dim foundCell As Boolean
+    
+    Dim retstat As Integer
+    
+    Dim statString As String
+    
+    statString = ""
+    
+    
+    rowNumber = 2       ' place to start looking...
+    Do While Worksheets("EXPECTED_RESULTS").Cells(rowNumber, 1).Value <> ""
+        rowNumber = rowNumber + 1
+    Loop
+    
+    rowNumber = rowNumber - 1
+    
+    columnMax = 2
+    '
+    '
+    ' locate last populated column
+    '
+    Do While Worksheets("EXPECTED_RESULTS").Cells(1, columnMax).Value <> ""
+    
+        columnMax = columnMax + 1
+    
+    Loop
+    
+    columnMax = columnMax - 1   ' forget about ModifyDate
+    
+
+'
+'
+'
+' importExpectedResults()
+'
+' get a .txt file name
+' open it, for each line...
+'   split on first =
+'   if first word is TEST_CASE_ID
+'       break
+'   if first word is STEP_ID
+'       break
+'   search for column that the first word matches the field name, msgbox if no match and break
+'   set value of the 'active' row and matching column to all after the =
+' close the file
+'
+
+'     On Error Resume Next
+'    Application.DisplayAlerts = False
+'    filePath = Application.GetOpenFilename("Excel Files (*.xlsx), *.xlsx", 1, "dbConnect - Import Test Cases")
+'    If filePath = "False" Then
+'        openExcelFile = "CANCEL"
+'        Exit Function
+'    End If
+
+    ' On Error Resume Next
+    ' Application.DisplayAlerts = False
+    ' importFile = Application.GetOpenFilename("Excel Files (*.xlsx), *.xlsx", 1, "dbConnect - Import Test Cases")
+    importFile = Application.GetOpenFilename("Text Files (*.txt), *.txt", 1, "dbConnect - Import Test Steps ER data")
+    If (importFile = "False") Then
+        'importExpectedResults = "False"
+        Application.DisplayAlerts = True
+        Exit Sub
+    End If
+    
+
+    loopEnd = False
+    retstat = vbOK
+    Open importFile For Input As #1 ' stdin? <weg>
+    Do While Not EOF(1) And Not loopEnd
+        Line Input #1, readString
+        Dim originalReadString As String
+        originalReadString = readString
+        retstat = vbOK
+        ' retstat = MsgBox(readString, vbOKCancel, "String Read from " & importFile)
+        If (retstat <> vbOK) Then
+            loopEnd = True
+        Else
+        
+            Dim delimPos As Integer
+            Dim lineCommand As String
+            
+            delimPos = InStr(1, readString, ":")
+            If (delimPos = 0 Or delimPos > Len(readString)) Then
+                retstat = MsgBox(readString, vbOKCancel, "Invalid input line: " & readString)
+                 If (retstat <> vbOK) Then
+                     loopEnd = True
+                End If
+                GoTo endOfLoop
+            End If
+    
+            lineCommand = Left(readString, delimPos - 1)
+
+            If (lineCommand = "TC" Or lineCommand = "TS" Or lineCommand = "SET" Or lineCommand = "CLEAR") Then
+                readString = Right(readString, Len(readString) - delimPos - 1)
+                equalPos = InStr(1, readString, "=")
+                If (equalPos = 0 Or equalPos > Len(readString)) Then
+                    retstat = MsgBox(readString, vbOKCancel, "No equal sign found: " & readString)
+                    If (retstat <> vbOK) Then
+                        loopEnd = True
+                        GoTo endOfLoop
+                    End If
+                End If
+                columnName = Left(readString, equalPos - 1)
+                cellValue = Right(readString, Len(readString) - (equalPos))
+                ' MsgBox readString, vbOKCancel, "column " & columnName & ", value " & cellValue
+                If (retstat <> vbOK) Then
+                      loopEnd = True
+                      GoTo endOfLoop
+                End If
+                '
+                ' Now go find the column we are to put this in...
+                '
+                foundCell = False
+                Dim I As Integer
+                Dim columnNumber As Integer
+                I = 1
+                Do While I <= columnMax And foundCell = False
+                    ' if this was used more often than seldom I'd put a dictionary in here to speed up the lookups...
+                    If columnName = Worksheets("EXPECTED_RESULTS").Cells(1, I).Value Then
+                        foundCell = True
+                        columnNumber = I
+                    Else
+                        I = I + 1
+                    End If
+    
+                Loop
+            
+                If foundCell = False Then
+                    MsgBox "Unknown column name: " & columnName, vbOKCancel, "Unable to locate column name"
+                    If (retstat <> vbOK) Then
+                        loopEnd = True
+                        GoTo endOfLoop
+                    End If
+                Else
+            
+                    If columnNumber = 1 Then
+                        rowNumber = rowNumber + 1
+                    End If
+            
+                    ' Okay, one of those "add gin to vermooth giving martini" moments...
+
+                    if ( lineCommand = "CLEAR" ) Then
+                        Worksheets("EXPECTED_RESULTS").Cells(rowNumber, columnNumber).Value = ""
+                    Else            
+                        Worksheets("EXPECTED_RESULTS").Cells(rowNumber, columnNumber).Value = cellValue
+                    End If
+                End If
+                GoTo endOfLoop
+            End If ' lineCommand = TC, et al...
+            If (lineCommand = "STAT") Then
+                statString = statString & Right(readString, Len(readString) - delimPos - 1) & vbCrLf
+                GoTo endOfLoop
+            End If ' lineCommand = TC, et al...
+        End If
+endOfLoop:
+    Loop
+    Close #1
+    If (statString = "") Then
+        statString = "No Stats in input file."
+    End If
+    MsgBox statString, vbOK, "Stats from input file"
+    Application.DisplayAlerts = True
+
+End Sub
+
+
+

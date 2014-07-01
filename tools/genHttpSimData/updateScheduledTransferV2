@@ -1,0 +1,18 @@
+################################################################################
+#  updateScheduledTransferV2 (CBS2)
+################################################################################
+[HTTP,PUT ,/cbs2/v2/fis/__FIID__/fiCustomers/__USER_GUID__/scheduledTransfers/]
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 27 Mar 2011 22:03:04 GMT
+Server: Apache-Coyote/1.1
+Content-Type: application/xml
+Client-Date: Sun, 27 Mar 2011 22:03:04 GMT
+Client-Peer: 192.168.227.221:8280
+Client-Response-Num: 1
+ntuit_tid: abcdef
+X-Powered-By: DI - An Intuit Company
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns11:ScheduledTransfer xmlns="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns5="http://schema.intuit.com/fs/common/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns11="http://schema.intuit.com/domain/banking/scheduledTransfer/v2"><ns11:id>Calabasas35029</ns11:id><ns11:transfer><ns9:transferStatus>SUCCESS</ns9:transferStatus></ns11:transfer></ns11:ScheduledTransfer>
+[/HTTP]
+

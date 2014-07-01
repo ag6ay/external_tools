@@ -1,0 +1,988 @@
+Attribute VB_Name = "importNewFieldData_Module"
+Option Explicit
+
+
+Dim TCSheet As String
+Dim ERSheet As String
+
+Dim TCRows As Dictionary
+Dim ERRows As Dictionary        ' hash of TC value first ER row # for TC
+Dim ERTSRows As Dictionary      ' hash of TC_TS value first row # for TS in TC
+
+Dim TCImportDebug As Boolean
+
+Dim statsSheet As String
+Dim checkSheet As String
+Dim setSheet As String
+Dim clearSheet As String
+Dim exceptionSheet As String
+
+Dim checkArray() As String
+Dim setArray() As String
+dim clearArray() As String
+
+Dim checkLength As Integer
+Dim exceptionLength As Integer
+Dim setLength As Integer
+Dim clearLength as integer
+
+
+Dim checksDone As Long
+Dim setsDone As Long
+Dim clearDone as Long
+
+Dim TC As String
+Dim TS As Integer
+Dim TCFirstRow As Long
+Dim TCFirstErRow As Long
+Dim TSFirstRow As Long
+Dim erl As Integer
+Dim FirstErRow As Long
+
+Dim fieldNames As Dictionary
+Dim fieldErrorCount As Integer
+
+Dim checkThisLineErrors As String
+
+
+
+
+
+Sub importNewFieldData()
+
+Dim totalLinesRead As Long
+
+Dim tcNameCount As Integer
+Dim tcFieldCount As Integer
+Dim exceptionInputFileName As String
+Dim auditAutomationLogFileName As String
+Dim dataFieldWidth As Integer
+Dim numberOfERColumns As Integer
+
+Dim numberOfUnmatchedFields As Integer
+
+
+Dim skipTCRead As Boolean
+
+Dim delimPos As Integer
+Dim equalPos As Integer
+
+Dim TDATE_data As String
+Dim TFMT_data As String
+
+Dim statCount As Long
+
+Dim oldTC As String
+
+
+
+
+Dim checkCount As Long
+Dim setCount   As Long
+Dim clearCount As Long
+Dim skipCount As Long
+
+
+Dim TCLineCount As Long
+Dim tsCount As Long
+Dim ERLCount As Integer
+Dim tcCount As Integer
+
+Dim currentScreenUpdating As Boolean
+
+Dim tmpStr As String
+
+Dim inputNewDataFile As Variant
+
+Dim LOOPEndFlag As Boolean
+Dim retstat As Integer
+
+Dim readString As String
+Dim lineCommand As String
+Dim tcName As String
+Dim fieldCount As Integer
+Dim subStatus As String
+Dim numTCLines As Integer
+Dim numERLines As Integer
+
+Dim oldTCname As String
+Dim oldTS As Integer
+
+Dim I As Integer
+Dim fieldnamedata As String
+Dim enddelimpos As Integer
+Dim fieldname As String
+Dim foundFlag As Integer
+Dim colNum As Integer
+Dim dummy As Integer
+
+
+
+TCImportDebug = False
+
+totalLinesRead = 0
+
+
+
+oldTC = ""
+TCFirstRow = 0          ' first TC row in TEST_CASES
+TCFirstErRow = 0        ' first TC row in ER worksheet
+FirstErRow = 0          ' first TS row offset from TCFirstErRow
+
+
+skipTCRead = False
+'skipTCRead = True           ' debug only
+
+numberOfUnmatchedFields = 0
+checkCount = 0
+setCount = 0
+clearCount = 0
+skipCount = 0
+checkLength = 0
+setLength = 0
+clearLength = 0
+
+statCount = 0
+
+tcCount = 0
+tsCount = 0
+ERLCount = 0
+
+checksDone = 0
+setsDone = 0
+clearDone = 0
+
+Dim numsheets As Integer
+Dim sheetName As String
+ 
+Dim savedAlerts As Boolean
+
+TCSheet = "TEST_CASES"
+ERSheet = "EXPECTED_RESULTS"
+
+
+
+statsSheet = "Stats"
+checkSheet = "checkSheet"
+setSheet = "setSheet"
+clearSheet = "clearSheet"
+exceptionSheet = "Exceptions"
+exceptionLength = 0
+
+savedAlerts = Application.DisplayAlerts
+Application.DisplayAlerts = False
+     
+On Error Resume Next
+
+Sheets(statsSheet).Delete
+Sheets(checkSheet).Delete
+Sheets(setSheet).Delete
+Sheets(clearSheet).Delete
+Sheets(exceptionSheet).Delete
+
+On Error GoTo 0
+
+
+
+Worksheets.Add().Name = statsSheet
+Worksheets(statsSheet).Visible = False
+Worksheets.Add().Name = checkSheet
+Worksheets(checkSheet).Visible = False
+Worksheets.Add().Name = setSheet
+Worksheets(setSheet).Visible = False
+Worksheets.Add().Name = clearSheet
+Worksheets(clearSheet).Visible = False
+Worksheets.Add().Name = exceptionSheet
+
+currentScreenUpdating = Application.ScreenUpdating
+Application.ScreenUpdating = False
+Application.DisplayAlerts = savedAlerts
+
+'
+'
+' get input file name
+'
+' open input file
+'
+' read TC names, emulate TestCaseId and load TCs specified in input file
+'
+' read field names and get ER column numbers for field names... error if not found!
+'
+'
+'
+' ...
+'
+'
+' close input file
+
+tcNameCount = 0
+tcCount = 0
+tcFieldCount = 0
+
+Set fieldNames = New Dictionary
+
+numberOfERColumns = 0
+
+fieldErrorCount = 0
+dataFieldWidth = 0
+exceptionInputFileName = ""
+auditAutomationLogFileName = ""
+
+inputNewDataFile = importNewFieldDataGetInputFileName()
+
+If inputNewDataFile = False Then
+    Exit Sub
+End If
+    
+LOOPEndFlag = False
+retstat = vbOK
+  
+Close #1
+
+Open inputNewDataFile For Input As #1 ' stdout???? <weg>
+ 
+Do While Not EOF(1) And Not LOOPEndFlag
+    
+    Line Input #1, readString
+    totalLinesRead = totalLinesRead + 1
+        
+    delimPos = InStr(1, readString, ": ")
+    If (delimPos = 0 Or delimPos > Len(readString)) Then
+        GoTo loopEnd
+    End If
+    
+    lineCommand = Left(readString, delimPos - 1)
+    
+    If lineCommand = "TESTCASE" Then
+        If tcNameCount = 0 Then
+        
+               'Reset Global Test Case Hash List
+               Set TestCaseIdList = New Dictionary
+               Set TCRows = New Dictionary
+               Set ERRows = New Dictionary
+               Set ERTSRows = New Dictionary
+               
+
+        End If
+        tcNameCount = tcNameCount + 1
+        If Not skipTCRead Then
+           tcName = Right(readString, Len(readString) - delimPos - 1)
+          ' retstat = MsgBox(tcName, vbOKCancel, "tcName value #" & tcNameCount)
+          If (tcCount < 4000000000#) Then ' for debugging...
+              TestCaseIdList.Add tcName, "TEST_CASE_ID"
+          End If
+          tcCount = tcCount + 1
+        End If
+        
+        GoTo loopEnd
+        
+    End If
+    
+    If lineCommand = "FIELD" Then
+    
+        If fieldCount = 0 And fieldErrorCount = 0 Then
+        
+            If skipTCRead Then
+                ' figure out tcCount
+                tcCount = 2
+                Do While (Worksheets("TEST_CASES").Cells(tcCount, 1) <> "")
+                    tcCount = tcCount + 1
+                Loop
+                tcCount = tcCount - 1   ' step back into reality...
+                ' MsgBox "tcCount = " & TCCount, , "Lines already in workbook"
+            Else
+            
+                ' load the TCs from the TCDB
+                subStatus = downloadTC
+                If (subStatus <> "OK") Then
+                    retstat = MsgBox("Status = " & subStatus, vbOKCancel, "downloadTC failed")
+                    exceptionLength = exceptionLength + 1
+                    Application.ScreenUpdating = True
+                    Worksheets(exceptionSheet).Cells(exceptionLength, 1) = "_NULL_"
+                    Worksheets(exceptionSheet).Cells(exceptionLength, 2) = "_NULL_"
+                    Worksheets(exceptionSheet).Cells(exceptionLength, 3) = "_NULL_"
+                    Worksheets(exceptionSheet).Cells(exceptionLength, 4) = "downloadTC() failed.  Status = " & subStatus
+                    Application.ScreenUpdating = False
+                    UserFormDashBoard.Show
+                    Exit Sub
+                End If
+            End If
+            
+            numTCLines = row_count(TCSheet, 1)
+            numERLines = row_count(ERSheet, 1)
+            numberOfERColumns = col_count(ERSheet, 1)
+            
+            
+            oldTCname = ""
+            For I = 2 To numTCLines
+                If Worksheets(TCSheet).Cells(I, 1).Value <> oldTCname Then
+                    oldTCname = Worksheets(TCSheet).Cells(I, 1).Value
+                    TCRows.Add oldTCname, I
+                End If
+            Next
+            
+            oldTCname = ""
+            oldTS = -1
+            For I = 2 To numERLines
+                If Worksheets(ERSheet).Cells(I, 1).Value <> oldTCname Or Worksheets(ERSheet).Cells(I, 2).Value <> oldTS Then
+                    If Worksheets(ERSheet).Cells(I, 1).Value <> oldTCname Then
+                        ERRows.Add Worksheets(ERSheet).Cells(I, 1).Value, I
+                    End If
+
+                    oldTCname = Worksheets(ERSheet).Cells(I, 1).Value
+                    oldTS = Worksheets(ERSheet).Cells(I, 2).Value
+                    ERTSRows.Add oldTCname & "_" & oldTS, I
+                    
+                End If
+            Next
+            
+        End If
+        
+        ' get the field name (ignoring occurrence count)
+        ' check the EXPECTED_RESULTS worksheet row 1 for the field name, report error if not found...
+        ' store the field name with the column indentification
+        
+        fieldnamedata = Right(readString, Len(readString) - delimPos - 1)
+        enddelimpos = InStr(1, fieldnamedata, " ")
+        fieldname = Left(fieldnamedata, enddelimpos - 1)
+        
+        foundFlag = 0
+        colNum = 1
+        
+        Do While (colNum <= numberOfERColumns)
+        
+            ' retstat = MsgBox("Column " & colNum & " name " & Worksheets("EXPECTED_RESULTS").Cells(1, colNum), _
+            '   vbOKCancel, "Checking against " & fieldName)
+            'If (retstat <> vbOK) Then
+            '  LOOPEndFlag = True
+            ' GoTo LOOPEnd
+            'End If
+            
+            If (fieldname = Worksheets(ERSheet).Cells(1, colNum)) Then
+                foundFlag = colNum
+                colNum = colNum + numberOfERColumns
+            Else
+                colNum = colNum + 1
+            End If
+        Loop
+        
+        If (foundFlag = 0) Then
+            fieldErrorCount = fieldErrorCount + 1
+            ' retstat = MsgBox("Unable to locate ER field " & fieldName & " in ER map.", vbOKCancel, "Unable to find ER field in ER map")
+            exceptionLength = exceptionLength + 1
+            Application.ScreenUpdating = True
+            Worksheets(exceptionSheet).Cells(exceptionLength, 1) = TC
+            Worksheets(exceptionSheet).Cells(exceptionLength, 2) = TS
+            Worksheets(exceptionSheet).Cells(exceptionLength, 3) = erl
+            Worksheets(exceptionSheet).Cells(exceptionLength, 4) = "Unable to locate ER field " & fieldname & " in ER map."
+            Application.ScreenUpdating = False
+
+            numberOfUnmatchedFields = numberOfUnmatchedFields + 1
+            If (retstat <> vbOK) Then
+              LOOPEndFlag = True
+              GoTo loopEnd
+            End If
+            GoTo loopEnd
+        End If
+        
+        If fieldname = "asOfDate" Then
+            dummy = 2
+        End If
+        fieldNames.Add fieldname, foundFlag
+        
+        fieldCount = fieldCount + 1
+    
+        GoTo loopEnd
+        
+    End If
+    
+    If lineCommand = "DEFAULT" Then
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "INFILENAME" Then
+    
+        If (exceptionInputFileName = "") Then
+            ' any final field name processing is done here...
+        End If
+        
+        exceptionInputFileName = Right(readString, Len(readString) - delimPos - 1)
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "INFILE" Then
+        auditAutomationLogFileName = Right(readString, Len(readString) - delimPos - 1)
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "FIELDWIDTH" Then
+        dataFieldWidth = Right(readString, Len(readString) - delimPos - 1)
+        retstat = MsgBox( _
+            "INFILENAME: " & exceptionInputFileName & vbCrLf _
+            & "INFILE: " & auditAutomationLogFileName & vbCrLf _
+            & "FIELDWIDTH: " & dataFieldWidth & vbCrLf _
+            & "numberOfUnmatchedFields: " & numberOfUnmatchedFields & vbCrLf _
+            , _
+            vbOKCancel, "Data Values")
+        If (retstat <> vbOK Or numberOfUnmatchedFields > 0) Then
+            LOOPEndFlag = True
+            GoTo loopEnd
+        End If
+        GoTo loopEnd
+    End If
+    
+    
+    If lineCommand = "TC" Then
+        Dim tmp As String
+        ' if previous check & set data then do it here
+        If (TC <> "" And TS <> 0 And erl > -1) Then
+            tmp = doValueSettings()
+        End If
+        TC = Right(readString, Len(readString) - delimPos - 1)
+        ' MsgBox "TC " & TC, , "DEBUG:  TEST_CASE_ID"
+        Call locateTCFirstRow
+        Call locateTCFirstERRow
+        TS = 0
+        erl = -1
+        TCLineCount = TCLineCount + 1
+        
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "TS" Then
+        If (TC <> "" And TS <> 0 And erl > -1) Then
+            tmp = doValueSettings()
+        End If
+        TS = Right(readString, Len(readString) - delimPos - 1)
+        ' MsgBox "TC " & TC & " TS " & TS, , "DEBUG:  TEST_CASE_ID"
+        erl = -1
+        tsCount = tsCount + 1
+        FirstErRow = 0
+        ' yuck... there is a better way...  probably almost set up for this...
+        Do While (Worksheets(ERSheet).Cells(TCFirstErRow + FirstErRow, 1) = TC)
+            If Worksheets(ERSheet).Cells(TCFirstErRow + FirstErRow, 2) = TS Then
+                Exit Do
+            End If
+            FirstErRow = FirstErRow + 1
+        Loop
+        If Worksheets(ERSheet).Cells(TCFirstErRow + FirstErRow, 1) <> TC Or _
+            Worksheets(ERSheet).Cells(TCFirstErRow + FirstErRow, 2) <> TS Then
+            ' Append to "EXCEPTIONS" worksheet here...
+            ' retstat = MsgBox("TC " & TC & " TS " & TS & " not found in EXPECTED_RESULTS worksheet.", _
+              vbOKCancel, "EXPECTED_RESULTS row not found: " & TC & " Step " & TS)
+            exceptionLength = exceptionLength + 1
+            Worksheets(exceptionSheet).Cells(exceptionLength, 1).Value = TC
+            Worksheets(exceptionSheet).Cells(exceptionLength, 2) = TS
+            Worksheets(exceptionSheet).Cells(exceptionLength, 3) = erl
+            Worksheets(exceptionSheet).Cells(exceptionLength, 4) = "not found in EXPECTED_RESULTS worksheet."
+
+            If (retstat <> vbOK) Then
+              LOOPEndFlag = True
+              GoTo loopEnd
+            End If
+        End If
+        ' MsgBox "TC " & TC & " TS " & TS & " TCROW " & TCFirstRow & " ERROW " & TCFirstErRow & " offset to TS " & FirstErRow, _
+        '     vbOKCancel, "DEBUG: first TC and ER line of TC " & TC
+        If (retstat <> vbOK) Then
+              LOOPEndFlag = True
+              GoTo loopEnd
+        End If
+
+        
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "ERL" Then
+        ' if previous check & set data then do it here...
+        If (TC <> "" And TS <> 0 And erl > -1) Then
+            tmp = doValueSettings()
+        End If
+
+        erl = Right(readString, Len(readString) - delimPos - 1)
+        
+        
+        checkLength = 0
+        setLength = 0
+	clearLength = 0
+        
+        TDATE_data = ""
+        TFMT_data = ""
+
+        ERLCount = ERLCount + 1
+
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "CHECK" Then
+
+        Dim checkTmpValue As String
+        
+        checkLength = checkLength + 1
+        checkCount = checkCount + 1
+        
+        fieldnamedata = Right(readString, Len(readString) - delimPos - 1)
+        equalPos = InStr(1, fieldnamedata, "=")
+
+        checkTmpValue = Right(fieldnamedata, Len(fieldnamedata) - equalPos)
+        Worksheets(checkSheet).Cells(checkLength, 1).Value = Left(fieldnamedata, equalPos - 1)
+        Worksheets(checkSheet).Cells(checkLength, 2).NumberFormat = "@"
+        If (Left(checkTmpValue, 1) = "'") Then
+            Worksheets(checkSheet).Cells(checkLength, 2) = "'" & checkTmpValue
+        Else
+            Worksheets(checkSheet).Cells(checkLength, 2) = checkTmpValue
+        End If
+        Worksheets(checkSheet).Cells(checkLength + 1, 1).Value = ""
+        Worksheets(checkSheet).Cells(checkLength + 1, 2).Value = ""
+        ' TCImportDebug = True
+        ' TCImportDebug = False
+        Application.ScreenUpdating = False
+        If TCImportDebug Then
+            Worksheets(checkSheet).Cells(1, 10).Value = "totalLinesRead"
+            Worksheets(checkSheet).Cells(1, 13).Value = totalLinesRead
+            Worksheets(checkSheet).Cells(2, 13).Value = TC
+            Worksheets(checkSheet).Cells(3, 13).Value = TS
+            Worksheets(checkSheet).Cells(4, 13).Value = erl
+            Worksheets(checkSheet).Cells(5, 10).Value = "TCFirstRow"
+            Worksheets(checkSheet).Cells(5, 13).Value = TCFirstRow
+            Worksheets(checkSheet).Cells(6, 10).Value = "TCFirstERRow"
+            Worksheets(checkSheet).Cells(6, 13).Value = TCFirstErRow
+            Worksheets(checkSheet).Cells(7, 10).Value = "TSFirstRow"
+            Worksheets(checkSheet).Cells(7, 13).Value = ERTSRows.Item(TC & "_" & TS)
+        End If
+        
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "SET" Then
+    
+        setLength = setLength + 1
+        setCount = setCount + 1
+        
+        fieldnamedata = Right(readString, Len(readString) - delimPos - 1)
+        equalPos = InStr(1, fieldnamedata, "=")
+
+        checkTmpValue = Right(fieldnamedata, Len(fieldnamedata) - equalPos)
+        Worksheets(setSheet).Cells(setLength, 1).Value = Left(fieldnamedata, equalPos - 1)
+        Worksheets(setSheet).Cells(setLength, 2).NumberFormat = "@"
+        If (Left(checkTmpValue, 1) = "'") Then
+            Worksheets(setSheet).Cells(setLength, 2) = "'" & checkTmpValue
+        Else
+            Worksheets(setSheet).Cells(setLength, 2) = checkTmpValue
+        End If
+
+        Worksheets(setSheet).Cells(setLength + 1, 1).Value = ""
+        Worksheets(setSheet).Cells(setLength + 1, 2).Value = ""
+
+        
+        GoTo loopEnd
+    End If
+
+    If lineCommand = "CLEAR" Then
+    
+        clearLength = clearLength + 1
+        clearCount = clearCount + 1
+        
+        fieldnamedata = Right(readString, Len(readString) - delimPos - 1)
+        
+        Worksheets(clearSheet).Cells(clearLength, 1).Value = fieldnamedata
+        Worksheets(clearSheet).Cells(clearLength, 1).NumberFormat = "@"
+
+        Worksheets(clearSheet).Cells(clearLength + 1, 1).Value = ""
+        Worksheets(clearSheet).Cells(clearLength + 1, 2).Value = ""
+
+        GoTo loopEnd
+    End If
+
+    If lineCommand = "NumericSkipped" Then
+        skipCount = skipCount + 1
+        GoTo loopEnd
+    End If
+
+    If lineCommand = "TDATE" Then
+        TDATE_data = Right(readString, Len(readString) - delimPos - 1)
+        GoTo loopEnd
+    End If
+
+    If lineCommand = "TFMT" Then
+        TFMT_data = Right(readString, Len(readString) - delimPos - 1)
+        GoTo loopEnd
+    End If
+    
+    If Left(lineCommand, Len("EXCEPTION")) = "EXCEPTION" Then
+        skipCount = skipCount + 1
+        GoTo loopEnd
+    End If
+    
+    If lineCommand = "STAT" Then
+        statCount = statCount + 1
+ 
+        Worksheets("Stats").Cells(statCount, 1) = Right(readString, Len(readString) - delimPos - 1)
+        
+        GoTo loopEnd
+    End If
+    
+    skipCount = skipCount + 1
+    retstat = MsgBox(readString, vbOKCancel, "String Read from " & inputNewDataFile)
+    If (retstat <> vbOK) Then
+        LOOPEndFlag = True
+        GoTo loopEnd
+    End If
+    
+        
+loopEnd:
+
+Loop
+
+If (TC <> "" And TS <> 0 And erl > -1) Then
+    tmp = doValueSettings()
+End If
+
+Close #1
+
+' msgbox out stat array as well as anything else that might be useful...
+
+MsgBox _
+        "Test Case headers read " & tcCount & vbCrLf _
+        & "Test Case Line headers read " & TCLineCount & vbCrLf _
+        & "Test Step headers read " & tsCount & vbCrLf _
+        & "Suggested ER Line Numbers read " & ERLCount & vbCrLf _
+        & "check lines read " & checkCount & vbCrLf _
+        & "set lines read " & setCount & vbCrLf _
+        & "clear lines read " & clearCount & vbCrLf _
+        & "Total field checks performed " & checksDone & vbCrLf _
+        & "Total field sets performed   " & setsDone & vbCrLf _
+        & "Total field clears performed   " & clearDone & vbCrLf _
+        & "input lines skipped " & skipCount & vbCrLf _
+        & "Total Lines Read " & totalLinesRead & vbCrLf _
+        , , "Stats"
+
+If statCount > 0 Then
+    tmpStr = ""
+    For I = 1 To statCount
+        tmpStr = tmpStr & Worksheets("Stats").Cells(I, 1) & vbCrLf
+    Next
+
+    MsgBox _
+        tmpStr, , "Stats read from input file"
+End If
+      
+savedAlerts = Application.DisplayAlerts
+Application.DisplayAlerts = False
+
+' commented out for debugging only...
+
+'Sheets(checkSheet).Delete
+'Sheets(setSheet).Delete
+'Sheets(clearSheet).Delete
+'Sheets(statsShet).Delete
+
+Application.DisplayAlerts = savedAlerts
+
+Application.ScreenUpdating = currentScreenUpdating
+
+End Sub
+
+
+
+Function importNewFieldDataGetInputFileName()
+
+    Dim importFile As String
+
+    importFile = Application.GetOpenFilename("Import Data Files (*.transactions), *.transactions", 1, "dbConnect - Import new field data ")
+    If (importFile = "False") Then
+        importNewFieldDataGetInputFileName = "False"
+        Application.DisplayAlerts = True
+        Exit Function
+    Else
+        importNewFieldDataGetInputFileName = importFile
+    End If
+
+
+
+End Function
+
+
+Sub locateTCFirstRow()
+
+    Dim firstRow As String
+    
+    firstRow = TCRows.Item(TC)
+    
+    TCFirstRow = firstRow + 0 ' make an int...
+
+End Sub
+
+Sub locateTCFirstERRow()
+   
+    Dim firstRow As String
+    
+    firstRow = ERRows.Item(TC)
+    
+    TCFirstErRow = firstRow + 0 ' ibid
+
+End Sub
+Function doValueSettings()
+
+    Dim I As Integer
+    Dim retbool As Boolean
+    
+    I = ERTSRows.Item(TC & "_" & TS) + erl
+    If I > 0 Then   ' = 0 => an issue...
+       retbool = checkThisLine(I) ' just for grins...
+        If retbool Then
+          ' do the settings
+            setFields (I)
+            doValueSettings = retbool
+            Exit Function
+        End If
+    End If
+    'Result = MsgBox("TC " & TC & " FirstTCRow " & TCFirstRow & vbCrLf _
+    '    & " TCERFirst Row " & TCFirstErRow & " TS " & TS & " Step offset " & ERTSRows.Item(TC & "_" & TS) & " erl " & erl & " retbool " & retbool, _
+    '    vbOKCancel, "doValueSettings()")
+    'If (Result <> vbOK) Then
+    '    dummy = 2
+    'End If
+    
+    I = ERTSRows.Item(TC & "_" & TS)
+    If I = 0 Then
+        doValueSettings = False
+        Exit Function
+    End If
+    Do While Worksheets(ERSheet).Cells(I, 1).Value = TC And Worksheets(ERSheet).Cells(I, 2).Value = TS
+
+        retbool = checkThisLine(I)
+        If retbool Then
+            ' Do not just stand there... set the values!!!!
+            setFields (I)
+            Exit Do
+        End If
+        I = I + 1
+    Loop
+    
+    If Not retbool Then
+            Application.ScreenUpdating = True
+            exceptionLength = exceptionLength + 1
+            Worksheets(exceptionSheet).Cells(exceptionLength, 1) = TC
+            Worksheets(exceptionSheet).Cells(exceptionLength, 2) = TS
+            Worksheets(exceptionSheet).Cells(exceptionLength, 3) = erl
+            Worksheets(exceptionSheet).Cells(exceptionLength, 4) = "Unable to match input data in " & ERSheet & "."
+            Worksheets(exceptionSheet).Cells(exceptionLength, 5) = checkThisLineErrors
+            Application.ScreenUpdating = False
+
+    End If
+    
+    doValueSettings = retbool
+    
+End Function
+Sub setFields(linenum)
+
+    '
+    '
+    '   if we get here then we are to update ER worksheet line linenum with the data in the setSheet sheet
+    '
+    '   Yes, that is right... the moment you have all been waiting for...
+    '
+
+    Dim clearFrom As Integer    
+    Dim setFrom As Integer
+    Dim setFieldName As String
+    Dim setColumn As Integer
+    Dim checkValue As String
+    
+    For setFrom = 1 To setLength
+        '
+        ' get field name
+        ' get column ER column number
+        ' set ER(linenum, column_number) to setSheet(i,2) -- as done with the "CHECK" and "Set" commands
+        setFieldName = Worksheets(setSheet).Cells(setFrom, 1).Value
+        setColumn = fieldNames.Item(setFieldName)
+        checkValue = Worksheets(setSheet).Cells(setFrom, 2).Value
+        
+        Worksheets(ERSheet).Cells(linenum, setColumn).NumberFormat = "@"
+        setsDone = setsDone + 1
+        If (Left(checkValue, 1) = "'") Then
+            Worksheets(ERSheet).Cells(linenum, setColumn).Value = "'" & checkValue
+        Else
+            Worksheets(ERSheet).Cells(linenum, setColumn).Value = checkValue
+        End If
+    
+    Next setFrom
+
+    For clearFrom = 1 to clearLength
+
+        '
+        ' get field name
+        ' get column ER column number
+        ' set ER(linenum, column_number) to setSheet(i,2) -- as done with the "CHECK" and "Set" commands
+	
+        setFieldName = Worksheets(clearSheet).Cells(clearFrom, 1).Value
+        setColumn = fieldNames.Item(setFieldName)
+        Worksheets(ERSheet).Cells(linenum, setColumn).NumberFormat = "@"
+	clearDone = clearDone + 1
+        Worksheets(ERSheet).Cells(linenum, setColumn).Value = ""
+
+    next clearFrom
+
+End Sub
+Function checkThisLine(lineno)
+
+    Dim retbool As Boolean
+    
+    retbool = True
+'
+' have a line to check against the checkSheet
+'
+' foreach field name in the checkSheet
+'   look up the field name's column
+'   check the checkSheet's column 2 against the field name's column
+'   if not 'equal'
+'       set retbool to false
+'       exit loop
+'   end if
+' end loop
+'
+' return retbool
+
+    Dim checkValue As String
+    Dim erValue As String
+    Dim fldnam As String
+    
+    checkThisLineErrors = ""
+    
+    If lineno = 0 Then
+        checkThisLine = retbool
+        Exit Function
+    End If
+    
+    Dim I As Integer
+    
+    For I = 1 To checkLength
+        fldnam = Worksheets(checkSheet).Cells(I, 1).Value
+        If fieldNames.Item(fldnam) = "" Then
+            Dim j As Integer
+            ' Well, yes, the dictionary _could_ have been pre-loaded... but this was easier at the time...  ;-)
+            ' because direct coding changes to existing macros was taboo (and mostly observed...)
+            j = findInRow(ERSheet, fldnam, 1)
+            If j > 0 Then
+                fieldNames.Add fldnam, j
+            End If
+        End If
+        Dim fieldColumn As Integer
+        fieldColumn = fieldNames.Item(fldnam)
+        checkValue = Worksheets(checkSheet).Cells(I, 2).Value
+        erValue = Worksheets(ERSheet).Cells(lineno, fieldColumn).Value
+        'mytmp = MsgBox(fldnam & ": " & checkValue, vbOKCancel, "'" & erValue & "'")
+        'If mytmp <> vbOK Then
+        '    dummy = 3
+        'End If
+        checksDone = checksDone + 1
+        If checkValue <> erValue Then
+            checkThisLineErrors = checkThisLineErrors & fldnam & " " & checkValue
+            retbool = False
+            Exit For
+        End If
+    Next I
+
+    checkThisLine = retbool
+End Function
+
+
+
+
+'###############################################################################
+'#                                                                             #
+'#     col_count - This Function will return a count of the consecutive        #
+'#                 columns in the provided row.                                #
+'#                                                                             #
+'#                input - wbName (name of workbook to row count)               #
+'#                        wsName (name of worksheet to row count)              #
+'#                        row (row of requested count)                         #
+'#                                                                             #
+'###############################################################################
+Private Function col_count(wsName As String, row As Long) As Long
+
+    Dim numCount As Long
+
+    numCount = 1
+    Do While Worksheets(wsName).Cells(row, numCount) <> ""
+        numCount = numCount + 1
+    Loop
+    numCount = numCount - 1
+
+
+    col_count = numCount
+
+End Function
+
+
+
+
+'###############################################################################
+'#                                                                             #
+'#     row_count - This Function will return a count of the consecutive        #
+'#                 rows in the provided Column.                                #
+'#                                                                             #
+'#                input - wbName (name of workbook to row count)               #
+'#                        wsName (name of worksheet to row count)              #
+'#                        col (column of requested count)                      #
+'#                                                                             #
+'###############################################################################
+Private Function row_count(wsName As String, col As Long) As Long
+
+    Dim numCount As Long
+
+    numCount = 1
+    Do While Worksheets(wsName).Cells(numCount, col) <> ""
+        numCount = numCount + 1
+    Loop
+    numCount = numCount - 1
+
+
+    row_count = numCount
+
+End Function
+
+
+
+
+
+'###############################################################################
+'#
+'#   findInRow -
+'#
+'###############################################################################
+Public Function findInRow(sheetName As String, searchStr As String, rowNum As Long) As String
+
+    Dim colNum As Long
+    Dim c
+
+    Dim I As Long
+    
+    colNum = 0
+    
+    ' Worksheets(sheetName).Activate
+    'With Worksheets(sheetName).Range(Cells(rowNum, 1), Cells(rowNum, 16384))
+    '    Set c = .Find(searchStr, LookIn:=xlValues, LookAt:=xlWhole)
+    '    If Not c Is Nothing Then
+    '       colNum = c.Column
+    '    Else
+    '        colNum = 0
+    '    End If
+    'End With
+
+    For I = 1 To 16384
+        If Worksheets(sheetName).Cells(rowNum, I).Value = "" Then
+            Exit For
+        End If
+        If Worksheets(sheetName).Cells(rowNum, I).Value = searchStr Then
+            colNum = I
+            Exit For
+        End If
+    Next I
+
+    findInRow = colNum
+
+End Function
+
+
+

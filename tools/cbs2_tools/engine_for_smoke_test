@@ -1,0 +1,222 @@
+#!/bin/bash
+#
+#
+# engine_for_smoke_test
+#
+#
+# execute a bunch of TCs sequentially
+#
+# a smoke test
+#
+# Argument:
+#
+#   shell environment variable ACTIVE_LIST
+#	list of TCs to run
+#
+#
+export TERM=dumb
+
+Failed_TCs=""
+Passed_TCs=""
+ActiveList=""
+badflag='no'
+exitflag='no'
+show_opt='no'
+
+show_options() 
+{
+	echo ""
+	echo ""
+	echo "$(basename $0) options:"
+	echo ""
+	echo ""
+	echo "--help		This help message (and force exit)"
+	echo "--name		Name of the smoke test"
+	echo "			may also be specified by shell environment variable SMOKE_TEST_NAME"
+	echo "--tests		Name of the TCs (space separated)"
+	echo "			may also be specified by shell environment variable ACTIVE_LIST"
+	echo ""
+	echo "NOTE:	Specifying the option overrides any environment variable value."
+	echo "		Some value for --name and --tests must be specified."
+	echo ""
+}
+
+argstate='option'
+
+active_list=""
+
+if [ $# > 0 ] ; then
+	for arg in "${@}" ; do
+		#echo "argstate='$argstate' arg='$arg'"
+		case "X$arg" in
+		    X---)
+			$arg = $(echo $arg | sed -e 's/^-//')	# remove escaping -
+			;;
+		esac
+		case "X$arg" in
+		    X--[a-zA-Z]*)
+			argstate='option'
+			;;
+		esac	
+		if [ $argstate = 'option' ] ; then
+			:
+			case X$arg in
+			    X--h|X--he|X--hel|X--help)
+				show_opt='yes'
+				;;
+			    X--n|X--na|X--nam|X--name)
+				argstate="--name"
+				;;
+			    X--t|X--te|X--tes|X--test|X--tests)
+				argstate="--tests"
+				;;
+			    *)
+				echo "Invalid option '$arg'"
+				badflag=yes
+				;;
+			esac
+		else
+			case $argstate in
+			    --name)
+				SMOKE_TEST_NAME="$arg"
+				;;
+			    --tests)
+				active_list="$active_list $arg"
+				;;
+			    *)
+				echo 
+				echo 
+				echo "$(basename $0) internal error:  argstate undefined..."
+				echo 
+				echo 
+				exit 2
+				;;
+			esac
+		fi
+	done
+fi
+
+
+if [ "X$SMOKE_TEST_NAME" = "X" ] ; then
+	echo 
+	echo 
+	echo	"$(basename $0): test name not specified either via --name nor SMOKE_TEST_NAME"
+	echo 
+	echo 
+	badflag=yes
+fi
+
+if [ "X$active_list" != 'X' ] ; then
+	ACTIVE_LIST="$active_list"
+fi
+listcount=$(echo $ACTIVE_LIST | wc -w)
+
+echo "Test Case Count: '$listcount'"
+
+if [ $listcount -lt 1 ] ; then
+	echo 
+	echo 
+	echo	"$(basename $0): No test case names specified via either --tests nor ACTIVE_LIST"
+	echo 
+	echo 
+	badflag=yes
+fi
+
+if [ $badflag != 'no' -o $show_opt != 'no' ] ; then
+	show_options
+	if [ $badflag != 'no' ] ; then
+		exit 2
+	fi
+	exit 0
+fi
+
+
+Active_List="\
+$ACTIVE_LIST
+"
+
+filename=../../logs/${SMOKE_TEST_NAME:-unnamedSmokeTest}.log
+consolidatedAuditAutomationLogFile=../../logs/${SMOKE_TEST_NAME:-unnamedSmokeTest}_auditAutomation.log
+
+startDateString=$(date)
+startDateSeconds=$(date +%s)
+tcsExecuted=0
+
+numberOfTCs=${listcount}
+
+TCCount=0;
+
+cat > $consolidatedAuditAutomationLogFile < /dev/null
+
+for TC in $ACTIVE_LIST ; do
+
+	TCCount=`expr $TCCount + 1`
+	echo ''
+	echo -e "\t$TC -- case $TCCount of $numberOfTCs"
+	echo ''
+	cmd="./automation.pl $TC"
+	echo "$cmd"
+	tcsExecuted=`expr $tcsExecuted + 1`
+	$cmd
+	stat=$?
+	echo ''
+	if [ $stat -ne 0 ] ; then
+		echo ''
+		echo -e "\t\t$TC -- failed -- $stat"
+		echo ''
+		Failed_TCs="$Failed_TCs$TC "
+	else
+		Passed_TCs="$Passed_TCs$TC "
+	fi
+
+	#echo "cat ../../logs/auditAutomation.log >> $consolidatedAuditAutomationLogFile"
+	cat ../../logs/auditAutomation.log >> $consolidatedAuditAutomationLogFile
+	echo '' >> $consolidatedAuditAutomationLogFile
+
+
+done
+
+
+endDateString=$(date)
+endDateSeconds=$(date +%s)
+
+retval=0
+if [ "X$Failed_TCs" = "X" ] ; then
+	( \
+	echo " "
+	echo "Smoke test '$SMOKE_TEST_NAME' passed."
+	echo " "
+	) 2>&1 | tee $filename
+else
+	( \
+	echo " "
+	echo "Smoke test '$SMOKE_TEST_NAME' FAILED."
+	echo " "
+	echo "Failed TCs are:"
+	echo ""
+	for TC in $Failed_TCs ; do
+		echo -e "\t$TC"
+	done
+	echo " "
+	echo "Passed TCs are:"
+	echo ""
+	for TC in $Passed_TCs ; do
+		echo -e "\t$TC"
+	done
+	echo ""
+	) 2>&1 | tee $filename
+	retval=1
+fi
+( \
+echo " "
+echo "Test Started:        $startDateString"
+echo "Test Ended:          $endDateString"
+echo " "
+deltaSeconds=`expr $endDateSeconds - $startDateSeconds`
+echo "Test Wallclock time: $deltaSeconds seconds"
+echo "Number of TCs run:   $tcsExecuted"
+echo "Number of TCs failed: " $(echo $Failed_TCs | wc -w)
+echo "Number of TCs passed: " $(echo $Passed_TCs | wc -w)
+echo " "
+) 2>&1 | tee -a $filename
+exit $retval

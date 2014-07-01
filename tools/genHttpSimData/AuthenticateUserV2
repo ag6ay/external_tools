@@ -1,0 +1,17 @@
+################################################################################
+#  AuthenticateUserV2 (CBS2)
+################################################################################
+[HTTP{DELAY=0.0},POST ,/cbs2/v2/platform/integration/identity/authToken,fiId>__FIID__</,loginId>__USER_ID__</,password>__PASSWORD__</]
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 01 Apr 2011 20:20:21 GMT
+Server: Apache-Coyote/1.1
+Content-Language: en-US
+Content-Type: application/xml;charset=ISO-8859-1
+Client-Date: Fri, 01 Apr 2011 20:20:21 GMT
+Client-Peer: 192.168.227.221:8280
+Client-Response-Num: 1
+X-Powered-By: DI - An Intuit Company
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns16:AuthToken xmlns="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns5="http://schema.intuit.com/fs/common/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/configuration/v2"><ns16:fiId>__FIID__</ns16:fiId><ns16:fiCustomerId>__USER_GUID__</ns16:fiCustomerId><ns16:credential><ns5:loginId>__USER_ID__</ns5:loginId></ns16:credential></ns16:AuthToken>
+[/HTTP]

@@ -1,0 +1,38 @@
+Application Name	Environment	INTUIT CNAME	INTUIT WIP	DI CNAME	DI WIP	On Hold	USED BY WLV FSG	Migrated
+Admin Platform (USP Admin)	QAL1	ap-qal.banking.intuit.net	ap-qal-banking.ilb.intuit.com	adp.qal1.diginsite.net	adp.qal1.lb.diginsite.net	no	yes	no
+Admin Platform (USP Admin)	QAL1	aps-qal.banking.intuit.net	aps-qal-banking.ilb.intuit.com	ads.qal1.diginsite.net	ads.qal1.lb.diginsite.net	no	yes	no
+Alerts and Notifications (MAIS)	QAL1	message-qal.banking.intuit.net	message-qal-banking.ilb.intuit.com	msg.qal1.diginsite.net	msg.qal1.lb.diginsite.net	no	yes	no
+Alerts and Transfers (ABS)	QAL1	abs-qal.banking.intuit.net	abs-qal.qydc.banking.intuit.net	abs.qal1.diginsite.net	abs.qal1.lb.diginsite.net	no	yes	no
+Bill Pay Services	QAL1	qa.billpayservices.intuit.net	services-qal-qydc.billpay.intuit.net	bps.qal1.diginsite.net	tcm.qal1.lb.diginsite.net	no	yes	no
+Bill Pay UI	QAL1	billpay-qal.banking.intuit.net	billpay-qal-banking.ilb.intuit.com	billpay.qal1.diginsite.net	billpay.qal1.lb.diginsite.net	no	no	no
+Causata	QAL1	cauproxy-qal.banking.intuit.net	cauproxy-qal-banking.ilb.intuit.com	cauproxy.qal1.diginsite.net	cauproxy.qal1.lb.diginsite.net	no	no	no
+Causata	QAL1	cauwebcap-qal.banking.intuit.net	cauwebcap-qal-banking.ilb.intuit.com	cauwebcap.qal1.diginsite.net	cauwebcap.qal1.lb.diginsite.net	no	no	no
+Causata	QAL1	cauapcap-qal.banking.intuit.net	cauapcap-qal-banking.ilb.intuit.com	cauapcap.qal1.diginsite.net	cauapcap.qal1.lb.diginsite.net	no	no	no
+Causata	QAL1	cauconfig-qal.banking.intuit.net	cauconfig-qal-banking.ilb.intuit.com	cauconfig.qal1.diginsite.net	cauconfig.qal1.lb.diginsite.net	no	no	no
+Causata	QAL1	caucql-qal.banking.intuit.net	caucql-qal-banking.ilb.intuit.com	caucql.qal1.diginsite.net	caucql.qal1.lb.diginsite.net	no	no	no
+FinanceWorks + Batch Jobs	QAL1	qa.financeworks-app.intuit.net	qa-financeworks-app.ilb.intuit.com	financeworks-app.qal1.diginsite.net	financeworks-app.qal1.lb.diginsite.net	no	yes	no
+Financial Management Integration Services	QAL1	fmis-qal.banking.intuit.net	fmis-qal-banking.ilb.intuit.com	fmis.qal1.diginsite.net	fmi-int.qal1.lb.diginsite.net	no	yes	no
+Financial Management Integration Services	QAL1	ttob-qal.banking.intuit.net	ttob-qal-banking.ilb.intuit.com	ttob.qal1.diginsite.net	TBD	no	yes	no
+Financial Management Integration Services	QAL1	isso-qal.banking.intuit.net	isso-qal-banking.ilb.intuit.com	isso.qal1.diginsite.net	TBD	no	yes	no
+Financial Management Integration Services	QAL1	qa.fmis.intuit.com	(not configured)	fmis.qal1.digitalinsight.com	fmi-fmis.qal1.lb.digitalinsight.com	yes	no	no
+Financial Management Integration Services	QAL1	qa.ttob.intuit.com	(not configured)	ttob.qal1.digitalinsight.com	fmi-ttob.qal1.lb.digitalinsight.com	yes	no	no
+Financial Management Integration Services	QAL1	qa.isso.intuit.com	(not configured)	isso.qal1.digitalinsight.com	fmi-isso.qal1.lb.digitalinsight.com	yes	no	no
+Global Logging	QAL1	gl-qal.banking.intuit.net	gl-qal-qydc.banking.intuit.net	gbl.qal1.diginsite.net	gbl.qal1.lb.diginsite.net	no	yes	no
+Image Services	QAL1	fdatafeed-nximage-sl1-qal.platform.intuit.net	fdatafeed-nximage-sl1-qal-qydc.platform.intuit.net	img.qal1.diginsite.net	img.qal1.lb.diginsite.net	no	yes	no
+Notfication Server (MFA)	QAL1	nsmfa-qal.banking.intuit.net	nsmfa-qal-banking.ilb.intuit.com	nsmfa.qal1.diginsite.net	nsmfa.qal1.lb.diginsite.net	no	yes	no
+NS - Mobile/SMS	QAL1	nsmbl-qal.banking.intuit.net	nsmbl-qal-banking.ilb.intuit.com	nsmbl.qal1.diginsite.net	nsmbl.qal1.lb.diginsite.net	no	yes	no
+P2P Services	QAL1	p2pservices-qal.banking.intuit.net	p2pservices-sl1-qal-qydc.banking.intuit.net	p2p.qal1.diginsite.net	p2p.qal1.lb.diginsite.net	no	yes	no
+Purchase Rewards	QAL1	prs-pqa.banking.intuit.net	prs-pqa-qydc.banking.intuit.net	prs.qal1.diginsite.net	prs.qal1.lb.diginsite.net	no	yes	no
+Purchase Rewards	QAL1	ops-qal.banking.intuit.net	ops-pqa-qydc.banking.intuit.net	ops.qal1.diginsite.net	ops.qal1.lb.diginsite.net	no	yes	no
+SB Payments	QAL1	achservices-qal.banking.intuit.net	achservices-qal-qydc.banking.intuit.net	sbp.qal1.diginsite.net	sbp.qal1.lb.diginsite.net	no	yes	no
+Voicegateway (Asterisk)	QAL1	asterisk-prf.banking.intuit.net	asterisk-prf-banking.ilb.intuit.com	asterisk.qal1.diginsite.net	asterisk.qal1.lb.diginsite.net	no	no	no
+Automated Deployment Services (ADS)	QAL1	ads-qal.banking.intuit.net	ads-qal-banking.ilb.intuit.com	ads-tis.qal1.diginsite.net	ads-tis.qal1.lb.diginsite.net	yes	no	no
+Automated Deployment Services (ADS)	QAL1			ads-crm.qal1.diginsite.net	ads-crm.qal1.lb.diginsite.net	yes	no	no
+Batch Banking	QAL1		diissql-qal.qydc.banking.ie.intuit.net			yes	no	no
+Batch Banking	QAL1	qabatchice.ie.intuit.net	ice-qal.qydc.banking.ie.intuit.net			yes	no	no
+Batch Banking	QAL1		batchmc-qal.qydc.banking.ie.intuit.net			yes	no	no
+Batch Banking	QAL1		batchbill-qal.qydc.banking.ie.intuit.net			yes	no	no
+Move IT/Customer Data Files	QAL1	pqalmitws300.ie.intuit.net	prod-isso.lb.intuit.com	mit.qal1.diginsite.net		yes	no	no
+Nexus	QAL1	fdatafeed-nxredeem-qal.platform.intuit.net	fdatafeed-nxredeem-qal-qydc.platform.intuit.net			yes	yes	no
+Nexus	QAL1	fdatafeed-nxdatasvc-qal.platform.intuit.net	fdatafeed-nxdata-sl1-qal-qydc.platform.intuit.net			yes	yes	no
+Nexus	QAL1	fdatafeed-nxdbcom-qal.platform.intuit.net	fdatafeed-nxdbcomm-sl1-qal-qydc.platform.intuit.net			yes	yes	no

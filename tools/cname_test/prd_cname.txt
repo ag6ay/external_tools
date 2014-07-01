@@ -1,0 +1,42 @@
+Application Name	Environment	INTUIT CNAME	INTUIT WIP	DI CNAME	DI WIP	On Hold	USED BY WLV FSG	Migrated
+Admin Platform (USP Admin)	PRD1	ap-prd.banking.intuit.net	ap-prd-banking.ilb.intuit.com	adp.prd1.diginsite.net	adp.prd1.lb.diginsite.net	no	yes	no
+Admin Platform (USP Admin)	PRD1	aps-prd.banking.intuit.net	aps-prd-banking.ilb.intuit.com	ads.prd1.diginsite.net	ads.prd1.lb.diginsite.net	no	yes	no
+Alerts and Notifications (MAIS)	PRD1	message-prd.banking.intuit.net	message-prd-banking.ilb.intuit.com	msg.prd1.diginsite.net	msg.prd1.lb.diginsite.net	no	yes	no
+Alerts and Transfers (ABS)	PRD1	abs-prd.banking.intuit.net	abs-prd-banking.ilb.intuit.com	abs.prd1.diginsite.net	abs.prd1.lb.diginsite.net	no	yes	no
+Batch Banking	PRD1	fdatafeed-diissql-prd.platform.intuit.net	fdatafeed-diissql-prd.platform.ilb.intuit.com	bat-diissql.prd1.diginsite.net	bat-diissql.prd1.lb.diginsite.net	no	no	no
+Batch Banking	PRD1	x	bieftp-prd-qydc.banking.ie.intuit.net	bat-ftp.prd1.diginsite.net	bat-ftp.prd1.lb.diginsite.net	no	no	no
+Batch Banking	PRD1	fdatafeed-beast-prd.platform.intuit.net	fdatafeed-beast-prd.platform.ilb.intuit.com	bat-beast.prd1.diginsite.net	bat-beast.prd1.lb.diginsite.net	no	no	no
+Batch Banking	PRD1	fdatafeed-batchusage-prd.platform.intuit.net	fdatafeed-batchusage-prd.platform.ilb.intuit.com	bat-usage.prd1.diginsite.net	bat-usage.prd1.lb.diginsite.net	no	no	no
+Batch Banking	PRD1	fdatafeed-batchmc-prd.platform.intuit.net	fdatafeed-batchmc-prd.platform.ilb.intuit.com	bat-mc.prd1.diginsite.net	bat-mc.prd1.lb.diginsite.net	no	no	no
+Bill Pay Services	PRD1	billpayservices.intuit.net	billpayservices.ilb.intuit.com	bps.prd1.diginsite.net	tcm.prd1.lb.diginsite.net	no	yes	no
+Bill Pay UI	PRD1	billpay-prd.banking.intuit.net	billpay-prd-banking.ilb.intuit.com	billpay.prd1.diginsite.net	billpay.prd1.lb.diginsite.net	no	no	no
+Causata	PRD1	cauproxy-prd.banking.intuit.net	cauproxy-prd-banking.ilb.intuit.com	cauproxy.prd1.diginsite.net	cauproxy.prd1.lb.diginsite.net	no	no	no
+Causata	PRD1	cauwebcap-prd.banking.intuit.net	cauwebcap-prd-banking.ilb.intuit.com	cauwebcap.prd1.diginsite.net	cauwebcap.prd1.lb.diginsite.net	no	no	no
+Causata	PRD1	cauapcap-prd.banking.intuit.net	cauapcap-prd-banking.ilb.intuit.com	cauapcap.prd1.diginsite.net	cauapcap.prd1.lb.diginsite.net	no	no	no
+Causata	PRD1	cauconfig-prd.banking.intuit.net	cauconfig-prd-banking.ilb.intuit.com	cauconfig.prd1.diginsite.net	cauconfig.prd1.lb.diginsite.net	no	no	no
+Causata	PRD1	caucql-prd.banking.intuit.net	caucql-prd-banking.ilb.intuit.com	caucql.prd1.diginsite.net	caucql.prd1.lb.diginsite.net	no	no	no
+Financial Management Integration Services	PRD1	fmis-prd.banking.intuit.net	fmis-prd-banking.ilb.intuit.com	fmis.prd1.diginsite.net	fmi.prd1.lb.diginsite.net	no	yes	no
+Financial Management Integration Services	PRD1	ttob-prd.banking.intuit.net	ttob-prd-banking.ilb.intuit.com	ttob.prd1.diginsite.net	fmi.prd1.lb.diginsite.net	no	yes	no
+Financial Management Integration Services	PRD1	isso-prd.banking.intuit.net	isso-prd-banking.ilb.intuit.com	isso.prd1.diginsite.net	fmi.prd1.lb.diginsite.net	no	yes	no
+Financial Management Integration Services	PRD1	prod.fmis.intuit.com	prod-fmis.lb.intuit.com	fmis.prd1.digitalinsight.com	fmi-fmis.prd1.lb.digitalinsight.com	no	no	no
+Financial Management Integration Services	PRD1	prod.ttob.intuit.com	prod-ttob.lb.intuit.com	ttob.prd1.digitalinsight.com	fmi-ttob.prd1.lb.digitalinsight.com	no	no	no
+Financial Management Integration Services	PRD1	prod.isso.intuit.com	prod-isso.lb.intuit.com	isso.prd1.digitalinsight.com	fmi-isso.prd1.lb.digitalinsight.com	no	no	no
+Financial Management Integration Services	PRD1	prod.fmis.intuit.com	prod-fmis.lb.intuit.com	fmis.digitalinsight.com	fmi-fmis.prd1.lb.digitalinsight.com	no	no	no
+Financial Management Integration Services	PRD1	prod.ttob.intuit.com	prod-ttob.lb.intuit.com	ttob.digitalinsight.com	fmi-ttob.prd1.lb.digitalinsight.com	no	no	no
+Financial Management Integration Services	PRD1	prod.isso.intuit.com	prod-isso.lb.intuit.com	isso.digitalinsight.com	fmi-isso.prd1.lb.digitalinsight.com	no	no	no
+Image Services	PRD1	fdatafeed-nximgsrvc-prd.platform.intuit.net	fdatafeed-nximgsrvc-prd.platform.ilb.intuit.com	img.prd1.diginsite.net	img.prd1.lb.diginsite.net	no	yes	no
+Move IT/Customer Data Files	PRD1	moveit-prd.banking.intuit.net	moveit-prd.banking.ilb.intuit.com	mit.prd1.diginsite.net	mit.prd1.lb.diginsite.net	no	no	no
+Nexus	PRD1	fdatafeed-nxdbcom-prd.platform.intuit.net	fdatafeed-nxdbcom-prd.platform.ilb.intuit.com	nxs.prd1.diginsite.net	nxs.prd1.lb.diginsite.net	no	yes	no
+Nexus	PRD1	fdatafeed-nxdatasvc-prd.platform.intuit.net	fdatafeed-nxdatasvc-prd.platform.ilb.intuit.com	nxd.prd1.diginsite.net	nxd.prd1.lb.diginsite.net	no	yes	no
+Notfication Server (MFA)	PRD1	nsmfa-prd.banking.intuit.net	nsmfa-prd-banking.ilb.intuit.com	nsmfa.prd1.diginsite.net	nsmfa.prd1.lb.diginsite.net	no	yes	no
+NS - Mobile/SMS	PRD1	nsmbl-prd.banking.intuit.net	nsmbl-prd-banking.ilb.intuit.com	nsmbl.prd1.diginsite.net	nsmbl.prd1.lb.diginsite.net	no	yes	no
+P2P Services	PRD1	p2pservices.banking.intuit.net	p2pservices-banking.ilb.intuit.com	p2p.prd1.diginsite.net	p2p.prd1.lb.diginsite.net	no	yes	no
+Purchase Rewards	PRD1	prs-prd.banking.intuit.net	prs-prd-banking.ilb.intuit.com	prs.prd1.diginsite.net	prs.prd1.lb.diginsite.net	no	yes	no
+Purchase Rewards	PRD1	ops-prd.banking.intuit.net	ops-prd-banking.ilb.intuit.com	ops.prd1.diginsite.net	ops.prd1.lb.diginsite.net	no	yes	no
+SB Payments	PRD1	achservices.banking.intuit.net	achservices.banking.ilb.intuit.com	sbp.prd1.diginsite.net	sbp.prd1.lb.diginsite.net	no	yes	no
+Voicegateway (Asterisk)	PRD1	asterisk-prd.banking.intuit.net	asterisk-prd-banking.ilb.intuit.com	asterisk.prd1.diginsite.net	asterisk.prd1.lb.diginsite.net	no	no	no
+Automated Deployment Services (ADS)	PRD1	ads-prd.banking.intuit.net	ads-prd-banking.ilb.intuit.com	ads-tis.prd1.diginsite.net	ads-tis.prd1.lb.diginsite.net	yes	no	no
+Automated Deployment Services (ADS)	PRD1			ads-crm.prd1.diginsite.net	ads-crm.prd1.lb.diginsite.net	yes	no	no
+FinanceWorks + Batch Jobs	PRD1	financeworks-app.intuit.net (Note: This is an LTM WIP)	No GTM WIP available	financeworks-app.prd1.diginsite.net	financeworks-app.prd1.lb.diginsite.net	yes	yes	no
+Global Logging	PRD1	gl-prd-banking.intuit.net	gl-prd-lb-banking.intuit.net	gbl.prd1.diginsite.net	gbl.prd1.lb.diginsite.net	yes	yes	no
+

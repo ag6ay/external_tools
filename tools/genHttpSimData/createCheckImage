@@ -1,0 +1,45 @@
+################################################################################
+# createCheckImage (Vertifi)
+################################################################################
+[HTTP,POST ,/rdc/sso/mobdep_init_ifs.ashx,__USER_ID__]
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/xml
+X-Powered-By: ASP.NET
+Server: Sony-PS3
+Date: Fri, 19 Aug 2011 00:47:26 GMT
+
+<?xml version="1.0"?>
+<Response>
+  <MessageValidation>
+    <InputValidation>OK</InputValidation>
+  </MessageValidation>
+  <UserValidation>
+    <LoginValidation>OK</LoginValidation>
+    <DepositLimit>OK</DepositLimit>
+  </UserValidation>
+  <ImageValidation>
+    <PreProcessing>OK</PreProcessing>
+    <CARMismatch>Not Tested</CARMismatch>
+    <FoldedCorners>Passed</FoldedCorners>
+    <ExcessSkew>Passed</ExcessSkew>
+    <TooDark>Passed</TooDark>
+    <TooLight>Passed</TooLight>
+    <BelowMinSize>Passed</BelowMinSize>
+    <AboveMaxSize>Passed</AboveMaxSize>
+    <UndersizedImage>Passed</UndersizedImage>
+    <OversizedImage>Passed</OversizedImage>
+    <SpotNoise>Passed</SpotNoise>
+    <DateUsability>Failed</DateUsability>
+    <PayeeUsability>Passed</PayeeUsability>
+    <SignatureUsability>Passed</SignatureUsability>
+    <PayorUsability>Passed</PayorUsability>
+    <MICRUsability>Passed</MICRUsability>
+    <Recognition>OK</Recognition>
+  </ImageValidation>
+  <DepositStatus>
+    <SSOKey>__USER_GUID__</SSOKey>
+  </DepositStatus>
+</Response>
+[/HTTP]
+

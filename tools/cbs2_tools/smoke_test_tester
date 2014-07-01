@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+#
+# smoke_test_tester
+#
+#
+# yet another scratch script
+#
+# ACH, anyone???
+#
+#
+i_am=${0}
+case X${i_am} in
+    X/*)
+	i_am_from=$(dirname ${i_am})
+	i_am=$(basename ${i_am})
+	;;
+    *)
+	
+	i_am_from="`pwd`/$(dirname ${i_am})"
+	i_am_from=$(cd ${i_am_from} ; pwd )
+	
+	i_am=$(basename ${i_am})
+	;;
+esac
+
+automation='automation.pl'
+
+engine='engine_for_smoke_test'
+
+badflag='no'
+
+for item in ${engine} ${automation} ; do
+	if [ ! -f ${i_am_from}/${item} ] ; then
+		echo ""
+		echo ""
+		echo "Unable to locate smoke test engine ${item} in directory with ${i_am}."
+		echo ""
+		echo ""
+		badflag='yes'
+	fi
+done
+
+if [ "X$badflag" != "Xno" ] ; then
+	exit 2
+fi
+
+export TERM=dumb
+
+
+Failed_TCs=""
+
+export ACTIVE_LIST="\
+TC_CBS2_V2_GET_ACH_ID_ASTAT_FT
+"
+
+
+export SMOKE_TEST_NAME=${i_am}
+
+cd ${i_am_from}
+exec ./${engine}
