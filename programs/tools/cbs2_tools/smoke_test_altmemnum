@@ -1,0 +1,80 @@
+#!/bin/bash
+#
+#
+# smoke_test_altmemnum
+#
+#
+# Alternate member number logins,  anyone???
+#
+#
+i_am=${0}
+case X${i_am} in
+    X/*)
+	i_am_from=$(dirname ${i_am})
+	i_am=$(basename ${i_am})
+	;;
+    *)
+	
+	i_am_from="`pwd`/$(dirname ${i_am})"
+	i_am_from=$(cd ${i_am_from} ; pwd )
+	i_am=$(basename ${i_am})
+	;;
+esac
+
+automation='automation.pl'
+
+engine='engine_for_smoke_test'
+
+badflag='no'
+
+for item in ${engine} ${automation} ; do
+	if [ ! -f ${i_am_from}/${item} ] ; then
+		echo ""
+		echo ""
+		echo "Unable to locate smoke test engine ${item} in directory with ${i_am}."
+		echo ""
+		echo ""
+		badflag='yes'
+	fi
+done
+
+if [ "X$badflag" != "Xno" ] ; then
+	exit 2
+fi
+
+export TERM=dumb
+
+Failed_TCs=""
+
+export ACTIVE_LIST="\
+TC_CBS2_V1_GLOBAL_HOST_PIN_FT
+TC_CBS2_V1_VALIDATE_CHAL_QUES_ANSWERS_FE
+TC_CBS2_V2_GET_ACCOUNT_LIST_FT
+TC_CBS2_V2_AUTH_USER_FT
+TC_CBS2_V2_GLOBAL_MISSING_HTTP_HEADERS_FE
+TC_CBS2_V2_AUTH_USER_MEM_NUM_FT
+TC_CBS2_V2_AUTH_USER_PASSWORD_EXPIRE_FE
+TC_CBS2_V2_AUTH_USER_PASSWORD_EXPIRE_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_NDB_FT
+TC_CBS2_V2_GLOBAL_LEADING_ZEROS_MEM_NUM_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_REG_FE
+TC_CBS2_V2_AUTH_USER_PASSWORD_FE
+TC_CBS2_V2_AUTH_USER_REGTYPE_REG_FT
+TC_CBS2_V2_AUTH_USER_PASSWORD_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_ARS_FE
+TC_CBS2_V2_AUTH_USER_ALT_MEM_NUM_FE
+TC_CBS2_V2_AUTH_USER_ALT_MEM_NUM_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_ARS_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_FIAT_FE
+TC_CBS2_V2_AUTH_USER_REGTYPE_FIAT_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_HAT_FE
+TC_CBS2_V2_AUTH_USER_REGTYPE_HAT_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_HYB_FE
+TC_CBS2_V2_AUTH_USER_REGTYPE_HYB_FT
+TC_CBS2_V2_AUTH_USER_REGTYPE_NDB_FE
+"
+
+export SMOKE_TEST_NAME=${i_am}
+
+cd ${i_am_from}
+exec ./${engine}

@@ -1,0 +1,16 @@
+################################################################################
+#  deleteScheduledTransferV2 (CBS2)
+################################################################################
+[HTTP,DELETE ,/cbs2/v2/fis/__FIID__/fiCustomers/__USER_GUID__/scheduledTransfers/]
+HTTP/1.1 204 No Content
+Connection: close
+Date: Sun, 27 Mar 2011 22:05:10 GMT
+Server: Apache-Coyote/1.1
+Client-Date: Sun, 27 Mar 2011 22:05:10 GMT
+Client-Peer: 192.168.227.221:8280
+Client-Response-Num: 1
+ntuit_tid: abcdef
+X-Powered-By: DI - An Intuit Company
+
+[/HTTP]
+

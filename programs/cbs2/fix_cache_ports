@@ -1,0 +1,57 @@
+#!/bin/bash
+
+
+instance='cbs2-qa'
+
+MAIL_DISTRO_LIST=${MAIL_DISTRO_LIST:-james_variot@intuit.com, amzad_hossain@intuit.com, matthew_greenberg@intuit.com, bernardo_martinez@intuit.com, poshan_sharma@intuit.com}
+
+i_am=$0
+
+case "X${i_am}" in
+
+	X/*)
+		i_am_from=$(dirname ${i_am})
+		i_am=$(basename ${i_am})
+		;;
+	*)
+		i_am="`pwd`/$i_am"
+		i_am_from=$(dirname ${i_am})
+		i_am=$(basename ${i_am})
+		;;
+esac
+
+i_am_from=$(cd $i_am_from ; pwd)	# pretty it up, just in case anyone notices...
+
+( \
+
+WrkDir=/opt/jboss/${instance}-home/server/default/env
+
+cd $WrkDir
+
+srcfile=${WrkDir}/tangosol-coherence-override.xml
+tmpfile=${WrkDir}/tangosol-coherence-override.xml.tmp
+
+if [ -f $tmpfile ] ; then
+	rm -f $tmpfile
+fi
+
+echo " patching "
+
+sed -e "/<port /s/8088/8288/" $srcfile > $tmpfile
+
+diff --width=200 --side-by-side --suppress-common-lines $srcfile $tmpfile
+stat=$?
+if [ $stat -ne 1 ] ; then
+	echo ""
+	echo "No changes were (correctly?) applied."
+	echo ""
+	exit $stat
+fi
+
+cp --verbose $tmpfile $srcfile
+
+chown -v jboss:jboss $srcfile $tmpfile
+
+${i_am_from}/bounce_instance ${instance}
+
+) 2>&1 | tee /dev/tty | tee /tmp/$(basename $0)_${instance}.log | mail -s "Fixed coherence cache ports for ${instance} on $(hostname)" ${MAIL_DISTRO_LIST}

@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+#
+# smoke_test_failed
+#
+# similar to smoke_test_errors
+#
+i_am=${0}
+case X${i_am} in
+    X/*)
+	i_am_from=$(dirname ${i_am})
+	i_am=$(basename ${i_am})
+	;;
+    *)
+	
+	i_am_from="`pwd`/$(dirname ${i_am})"
+	i_am_from=$(cd ${i_am_from} ; pwd )
+	i_am=$(basename ${i_am})
+	;;
+esac
+
+automation='automation.pl'
+
+engine='engine_for_smoke_test'
+
+badflag='no'
+
+INFILE=${INFILE:-../../logs/basicSummaryAutomation.log}
+
+for item in ${i_am_from}/${engine} ${i_am_from}/${automation} $INFILE ; do
+	if [ ! -f ${item} ] ; then
+		echo ""
+		echo ""
+		echo "Unable to locate test engine item $item."
+		echo ""
+		echo ""
+		badflag='yes'
+	fi
+done
+
+if [ "X$badflag" != "Xno" ] ; then
+	exit 2
+fi
+
+
+export TERM=dumb
+
+
+Failed_TCs=""
+
+export ACTIVE_LIST="$(fgrep FAILED ${INFILE} | awk ' $1 == "XXXX" { print $2 ; next } ')"
+
+echo ""
+echo ""
+echo "ACTIVE_LIST count $(echo $ACTIVE_LIST | wc -w)"
+echo ""
+echo "List: $ACTIVE_LIST"
+echo ""
+
+
+export SMOKE_TEST_NAME=${i_am}
+
+cd ${i_am_from}
+exec ./${engine}

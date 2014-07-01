@@ -1,0 +1,120 @@
+1.) When you RUN automation.pl and you don't have any expected results loaded into the IATF you'll get ouput similar to this:
+
+----------------------------------------------------------------------------------------------------
+	STEP ID: 4	STEP DESCRIPTION: Get list of bill payments with no query parameters in request and confirm all expected SCHEDULED payments are returned.
+	STEP RESULT: [00:00:00] FAILED -
+
+EXPECTED RESULTS:
+accountId=2066 accountName=Star One Creditnew1 accountNickname=Star One Creditnew1 amount=1.23 autoPayment=false billPaymentDate=__DYNAMIC(IGNORE{})__ billPaymentId=__DYNAMIC(ID{billPaymentId1})__ categoryId=2512 categoryName=None confirmationNumber=__DYNAMIC(IGNORE{})__ createdTime=__DYNAMIC(IGNORE{})__ currencyCode=USD deliveryMethod=STANDARD_ELECTRONIC expectedDeliveryDate=__DYNAMIC(IGNORE{})__ lastUpdatedTime=__DYNAMIC(IGNORE{})__ memo=test payeeAccountNumber=****2347 payeeId=75144 payeeName=Toyota Financial Services payeeNickname=Toyota Financial Services revision=1 status=SCHEDULED
+
+ACTUAL RESULTS:
+accountId=2152 accountName=Star One Creditnew1 accountNickname=Star One Creditnew1 amount=123 autoPayment=false billPaymentDate=2013-03-22 billPaymentId=106132 categoryId=2624 categoryName=None confirmationNumber=WBWB7Z94 createdTime=2013-03-01T10:35:48.713-08:00 currencyCode=USD deliveryMethod=STANDARD_ELECTRONIC expectedDeliveryDate=2013-03-22 lastUpdatedTime=2013-03-01T10:35:48.713-08:00 memo=test payeeAccountNumber=****2347 payeeId=79762 payeeName=Toyota Financial Services payeeNickname=Toyota Financial Services revision=1 status=SCHEDULED
+accountId=2152 accountName=Star One Creditnew1 accountNickname=Star One Creditnew1 amount=620 autoPayment=false billPaymentDate=2013-03-18 billPaymentId=106131 categoryId=2624 categoryName=None confirmationNumber=MBWB7Z94 createdTime=2013-03-01T10:35:48.712-08:00 currencyCode=USD deliveryMethod=STANDARD_ELECTRONIC expectedDeliveryDate=2013-03-18 lastUpdatedTime=2013-03-01T10:35:48.712-08:00 memo=test payeeAccountNumber=****2347 payeeId=79762 payeeName=Toyota Financial Services payeeNickname=Toyota Financial Services revision=1 status=SCHEDULED
+accountId=2152 accountName=Star One Creditnew1 accountNickname=Star One Creditnew1 amount=620 autoPayment=false billPaymentDate=2013-03-19 billPaymentId=106130 categoryId=2624 categoryName=None confirmationNumber=MBOB7Z94 createdTime=2013-03-01T10:35:48.711-08:00 currencyCode=USD deliveryMethod=STANDARD_ELECTRONIC expectedDeliveryDate=2013-03-19 lastUpdatedTime=2013-03-01T10:35:48.711-08:00 memo=test payeeAccountNumber=****2347 payeeId=79762 payeeName=Toyota Financial Services payeeNickname=Toyota Financial Services revision=1 status=SCHEDULED
+accountId=2153 accountName=A Enterprise CU accountNickname=A Enterprise CU address1=180 elm ct amount=113 autoPayment=false billPaymentDate=2013-12-13 billPaymentId=108006 categoryId=2623 categoryName=Household checkNumber=9093 city=sunnayvale confirmationNumber=FB7B9Z94 country=US createdTime=2013-03-01T11:07:58.389-08:00 currencyCode=USD deliveryMethod=DIRECT_CHECK expectedDeliveryDate=2013-12-13 lastUpdatedTime=2013-03-01T11:07:58.389-08:00 memo=test payeeId=79696 payeeName=ABC132 payeeNickname=ABC1 postalCode=91051 revision=1 state=CA status=SCHEDULED
+accountId=2153 accountName=A Enterprise CU accountNickname=A Enterprise CU address1=180 elm ct amount=133 autoPayment=false billPaymentDate=2013-12-13 billPaymentId=108004 categoryId=2623 categoryName=Household checkNumber=9094 city=sunnayvale confirmationNumber=5B7B9Z94 country=US createdTime=2013-03-01T11:07:58.387-08:00 currencyCode=USD deliveryMethod=DIRECT_CHECK expectedDeliveryDate=2013-12-13 lastUpdatedTime=2013-03-01T11:07:58.387-08:00 memo=test payeeId=79696 payeeName=ABC132 payeeNickname=ABC1 postalCode=91051 revision=1 state=CA status=SCHEDULED
+accountId=2153 accountName=A Enterprise CU accountNickname=A Enterprise CU address1=180 elm ct amount=123 autoPayment=false billPaymentDate=2013-12-13 billPaymentId=108005 categoryId=2620 categoryName=Credit Card checkNumber=9091 city=sunnayvale confirmationNumber=DB7B9Z94 country=US createdTime=2013-03-01T11:07:58.388-08:00 currencyCode=USD deliveryMethod=DIRECT_CHECK expectedDeliveryDate=2013-12-13 lastUpdatedTime=2013-03-01T11:07:58.388-08:00 memo=test payeeId=79696 payeeName=ABC132 payeeNickname=ABC1 postalCode=91051 revision=1 state=CA status=SCHEDULED
+accountId=2153 accountName=A Enterprise CU accountNickname=A Enterprise CU address1=180 elm ct amount=176 autoPayment=false billPaymentDate=2013-12-13 billPaymentId=108007 categoryId=2619 categoryName=Miscellaneous checkNumber=9095 city=sunnayvale confirmationNumber=GB7B9Z94 country=US createdTime=2013-03-01T11:07:58.390-08:00 currencyCode=USD deliveryMethod=DIRECT_CHECK expectedDeliveryDate=2013-12-13 lastUpdatedTime=2013-03-01T11:07:58.390-08:00 memo=test payeeId=79696 payeeName=ABC132 payeeNickname=ABC1 postalCode=91051 revision=1 state=CA status=SCHEDULED
+----------------------------------------------------------------------------------------------------
+
+
+2.) You visually VERIFY that the "ACTUAL RESULTS" are correct and now you need to get the data into the IATF so that the step will pass validation.
+
+
+
+3.) In cases where you have a lot of data it would be easier to FORMAT the data correctly before going to excel.
+
+
+
+4.) process.pl will PROCESS the response for you, and allow you to copy & paste the output into excel.
+
+
+
+### HOW TO ###
+
+5.) Edit data.txt and paste in the actual response lines from the automation log.
+	a.) Don't include the line that says "ACTUAL RESULTS:"
+	b.) Don't include any extra / empty lines at the bottom.
+
+
+
+6.) Open up the IATF spreadsheet and select the test case that you're working on.
+
+
+
+7.) Switch to the EXPECTED_RESULTS tab.
+
+
+
+8.) Copy the entire header line:
+	a.) If you right click on 1 and then select copy it'll copy everything you need.
+
+
+
+9.) Edit iatfHeader in this directory and paste in the header copied from the IATF. 
+	NOTE: By default when you copy from excel it copies the newline. Make sure to DELETE the extra line that is pasted.
+
+
+
+10.) Run the command
+	./process.pl -f data.txt
+
+## YOUR OUTPUT WILL LOOK LIKE THIS ##
+TEST_CASE_ID	STEP_ID	PROGRAM_STATUS	HTTP_CODE	Content-Type	Date	statusMessage	errorType	errorCode	errorMessage	oauth_token	oauth_token_expiry	oauth_token_secret	xoauth_subjects	Intuit_tid	Intuit_sessionid	REGEX_VALIDATION	accountId	accountName	accountNickname	amount	autoPayment	categoryId	categoryName	confirmationNumber	createdTime	currencyCode	billPaymentDate	deliveryMethod	expectedDeliveryDate	lastUpdatedTime	memo	payeeAccountNumber	payeeName	payeeNickname	revision	status	billPaymentId	address	note	paymentStatus	fundingAccountId	accountNumber	fundingMethod	checkNumber	paymentDate	state	city	country	address1	postalCode	MODIFY_DATE
+
+																	2152	Star One Creditnew1	Star One Creditnew1	123	false	2624	None	WBWB7Z94	2013-03-01T10:35:48.713-08:00	USD	2013-03-22	STANDARD_ELECTRONIC	2013-03-22	2013-03-01T10:35:48.713-08:00	test	****2347	Toyota Financial Services	Toyota Financial Services	1	SCHEDULED	106132
+																	2152	Star One Creditnew1	Star One Creditnew1	620	false	2624	None	MBWB7Z94	2013-03-01T10:35:48.712-08:00	USD	2013-03-18	STANDARD_ELECTRONIC	2013-03-18	2013-03-01T10:35:48.712-08:00	test	****2347	Toyota Financial Services	Toyota Financial Services	1	SCHEDULED	106131
+																	2152	Star One Creditnew1	Star One Creditnew1	620	false	2624	None	MBOB7Z94	2013-03-01T10:35:48.711-08:00	USD	2013-03-19	STANDARD_ELECTRONIC	2013-03-19	2013-03-01T10:35:48.711-08:00	test	****2347	Toyota Financial Services	Toyota Financial Services	1	SCHEDULED	106130
+																	2153	A Enterprise CU	A Enterprise CU	113	false	2623	Household	FB7B9Z94	2013-03-01T11:07:58.389-08:00	USD	2013-12-13	DIRECT_CHECK	2013-12-13	2013-03-01T11:07:58.389-08:00	test		ABC132	ABC1	1	SCHEDULED	108006							9093		CA	sunnayvale	US	180 elm ct	91051
+																	2153	A Enterprise CU	A Enterprise CU	133	false	2623	Household	5B7B9Z94	2013-03-01T11:07:58.387-08:00	USD	2013-12-13	DIRECT_CHECK	2013-12-13	2013-03-01T11:07:58.387-08:00	test		ABC132	ABC1	1	SCHEDULED	108004							9094		CA	sunnayvale	US	180 elm ct	91051
+																	2153	A Enterprise CU	A Enterprise CU	123	false	2620	Credit Card	DB7B9Z94	2013-03-01T11:07:58.388-08:00	USD	2013-12-13	DIRECT_CHECK	2013-12-13	2013-03-01T11:07:58.388-08:00	test		ABC132	ABC1	1	SCHEDULED	108005							9091		CA	sunnayvale	US	180 elm ct	91051
+																	2153	A Enterprise CU	A Enterprise CU	176	false	2619	Miscellaneous	GB7B9Z94	2013-03-01T11:07:58.390-08:00	USD	2013-12-13	DIRECT_CHECK	2013-12-13	2013-03-01T11:07:58.390-08:00	test		ABC132	ABC1	1	SCHEDULED	108007							9095		CA	sunnayvale	US	180 elm ct	91051
+
+Line 1 need to add mapping for:	payeeId(79762)
+Line 2 need to add mapping for:	payeeId(79762)
+Line 3 need to add mapping for:	payeeId(79762)
+Line 4 need to add mapping for:	payeeId(79696)
+Line 5 need to add mapping for:	payeeId(79696)
+Line 6 need to add mapping for:	payeeId(79696)
+Line 7 need to add mapping for:	payeeId(79696)
+Line 8 need to add mapping for:
+	
+
+
+11.) If there are any values that are in the actual results but not mapped in the expected results then they will display such as this:
+Line 1 need to add mapping for:	payeeId(79762)
+Line 2 need to add mapping for:	payeeId(79762)
+Line 3 need to add mapping for:	payeeId(79762)
+Line 4 need to add mapping for:	payeeId(79696)
+Line 5 need to add mapping for:	payeeId(79696)
+Line 6 need to add mapping for:	payeeId(79696)
+Line 7 need to add mapping for:	payeeId(79696)
+
+
+
+12.) Go into the IATF and update mappings for the call that you ran.
+	a.) add the mapping "payeeId" for this example
+
+
+
+13.) Once you've updated the mappings reload the test case in the IATF and copy the header again from the EXPECTED_RESULTS.
+
+
+
+14.) Keep repeating steps 6 - 12 until no missing mappings are returned from step 10.
+	a.) You should only have to do this once because you can add all the missing mappings at the same time.
+
+
+15.) Select the output of the command and paste into a new excel document.
+
+
+
+16.) If you compare the EXPECTED_RESULTS layout with what you just pasted you should notice that the columns are in the right order. 
+
+
+
+17.) Copy & Paste from the temporary excel document into the IATF spreadsheet.
+	a.) you may have to insert a few lines to give space for the paste or you can copy the whole line from the temp document and then "Insert copied cells" 
+
+
+18.) Update the test case into the IATF and run it gain.

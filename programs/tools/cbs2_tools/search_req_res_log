@@ -1,0 +1,178 @@
+#!/bin/bash
+#
+#
+# search_req_res_log
+#
+# Search the log (fragment) for fields that should be masked...
+#
+
+INFILE=${INFILE:-data/cbs2_res_req.extract.log}
+LOGCONFIGFILE=${LOGCONFIGFILE:-../server/default/env/config/defaults/log-config.xml}
+
+# fgrep 'contactInfo>' cbs2_res_req.extract.log | sed -e 's/^.*<ns\([1-9][0-9]*\):contactInfo>/<ns\1:contactInfo>/' -e 's&</ns\([1-9][0-9]*\):contactInfo>.*$&</ns\1*:contactInfo>&'
+
+if [ ! -f $INFILE ] ; then
+	echo
+	echo
+	echo "Unable to locate '$INFILE'"
+	echo
+	echo
+	exit 2
+fi
+
+if [ "X$LOGCONFIGFILE" != "XNONE" ] ; then
+	if [ ! -f $LOGCONFIGFILE ] ; then
+		echo
+		echo
+		echo "Unable to locate '$LOGCONFIGFILE'"
+		echo
+		echo
+		exit 2
+	fi
+fi
+
+echo "Searching '$INFILE'"
+
+if [ "X$LOGCONFIGFILE" != "XNONE" ] ; then
+    newfieldlist=$(\
+	sed -e 's/^[[:space:]][[:space:]]*//' $LOGCONFIGFILE \
+	| awk '
+		BEGIN {
+			skip="skip"
+			process="process"
+			state=skip
+		}
+		$0 ~ /^<maskObjects>/ {
+			#print "Setting process state"
+			state=process
+			next
+			}
+		$0 ~ /^<\/maskObjects>/ {
+			state=skip
+			next
+			}
+		state == skip {
+			#print "skipping: ", $0
+			next
+			}
+		$0 ~ /^<maskField/ {
+			data=$0
+			sub(/^<maskField[^>]*>/, "", data)
+			sub(/<\/maskField>.*$/, "", data)
+			print data
+			next
+			}
+			
+		END {
+		}
+		' \
+	| sort -u
+    )
+    echo "newfieldlist=$newfieldlist"
+fi
+
+
+fieldlist='
+rawHostValue
+hostValue
+displayValue
+billPayValue
+pfmValue
+plasticCardValue
+externalMortgageAccountValue
+displayAccountNumber
+rawHostValue
+hostValue
+displayValue
+billPayValue
+pfmValue
+plasticCardValue
+externalMortgageAccountValue
+displayAccountNumber
+rawHostValue
+hostValue
+displayValue
+billPayValue
+pfmValue
+plasticCardValue
+externalMortgageAccountValue
+displayAccountNumber
+rawHostValue
+hostValue
+displayValue
+billPayValue
+pfmValue
+plasticCardValue
+externalMortgageAccountValue
+masterAccountNumber
+displayAccountNumber
+rawHostValue
+hostValue
+displayValue
+billPayValue
+pfmValue
+plasticCardValue
+externalMortgageAccountValue
+masterAccountNumber
+displayAccountNumber
+password
+oldPassword
+agentId
+ticket
+availableDestinations
+chosenDestination
+ticket
+contactInfo
+oneTimePasscode
+challengeAnswers
+challengeAnswers
+'
+
+if [ "X$LOGCONFIGFILE" != "XNONE" ] ; then
+	fieldlist="$newfieldlist"
+fi
+
+fieldlist=$(echo $fieldlist | xargs -n 1 echo | sort -u | uniq )
+
+
+for field in $fieldlist ; do
+
+	echo " "
+	echo "'$field'"
+
+	#fgrep "$field>" ${INFILE} | sed -e 's/^.*<\(\(ns\)\{0,1\}[1-9][0-9]*\):'$field'>/<\1:'$field'>/' -e 's&</\(\(ns\)\{0,1\}[1-9][0-9]*\):'$field'>.*$&</\1*:'$field'>&' 
+	fgrep "$field>" ${INFILE} \
+		| sed -e 's/^.*<\(\(ns\)\{0,1\}[1-9][0-9]*:\)\{0,1\}'$field'>/<\1'$field'>/' -e 's&</\(\(ns\)\{0,1\}[1-9][0-9]*:\)\{0,1\}'$field'>.*$&</\1'$field'>&' \
+		| awk '
+		BEGIN {
+			errorcount=0
+			}
+			{
+			#print $0
+			str=$0
+			sub(/^[^>]*>/, "", str)
+			sub(/<.*$/, "", str)
+			len = length(str)
+			if ( len <= 4 ) {
+				next
+			}
+			orig_masked=substr(str, 1, len-4)
+			masked=orig_masked
+			gsub(/[^*]/, 'x', masked)
+			if ( masked != orig_masked ) {
+				#print "Error:	\"" str "\""
+				print "Error:	\"" $0 "\""
+				errorcount=errorcount+1
+			}
+		}
+		END {
+			print ""
+			print "Number found:  ", NR
+			print "Error Count:   ", errorcount
+			print ""
+		}
+		'
+	echo " "
+	#fgrep "$field>" ${INFILE} | sed -e 's/^.*<ns\([1-9][0-9]*\):'$field'>/<\1:'$field'>/' -e 's&</ns\([1-9][0-9]*\):'$field'>.*$&</\1:'$field'>&' | wc -l
+
+done

@@ -1,0 +1,160 @@
+
+ne time periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>0<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>0<T_NUM1>0<T_NUM2>0<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+--monthly (on specific date) periodic balance alert.
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>1<T_NUM1>10<T_NUM2>0<A_EMAIL>amzad.hossain@digitalins
+
+ight.com<A_SUBJECT>**Recurring monthly (on specific date) Balance Notification for your account 
+
+XXX<A_MESSAGE>BALANCE INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account 
+
+balance listed above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+--recurring monthly (on specific day) periodic balance alert.
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>2<T_NUM1>2<T_NUM2>4<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+--recurring twice monthly periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>3<T_NUM1>14<T_NUM2>26<A_EMAIL>amzad.hossain@digitalin
+
+sight.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+--recurring weekly periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>4<T_NUM1>1<T_NUM2>1<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+
+--recurring annually periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>5<T_NUM1>0<T_NUM2>0<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+
+--recurring daily periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>6<T_NUM1>0<T_NUM2>0<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+
+-- recurring Bi-Weekly periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>7<T_NUM1>0<T_NUM2>0<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+
+--recurring Quarterly periodic balance alert.
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>8<T_NUM1>0<T_NUM2>0<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+
+--recurring Semi-Annually periodic balance alert
+rmDIIS 40038 helium2qa 
+
+"<REQ>SRTADD<FI>DI7139<SDATA><TEST>SCHEDULEDITEM<ACTION>ALERT<A_ANUM>1111<A_ATYP>2<A_AATTRIB>AABAL<A_TUSR>91234567<
+
+A_ALERTTYPE>1<T_INITIAL>20081119<T_FINAL>20151109<T_FREQUENCY>9<T_NUM1>0<T_NUM2>0<A_EMAIL>amzad.hossain@digitalinsi
+
+ght.com<A_SUBJECT>**One Time Periodic Balance Notification for your account XXX<A_MESSAGE>BALANCE 
+
+INFORMATION~nAccount:XXX~n~b~m This message has been sent to inform you of the account balance listed 
+
+above.~mperiodic balance footer fi~mperiodic balance footer 
+
+di<A_MPRIORITY>0</SDATA><SERVICE>0<LOGUSERID>91234567<PIN>11111<USR>91234567" -x -d;
+
+
+--
+
+

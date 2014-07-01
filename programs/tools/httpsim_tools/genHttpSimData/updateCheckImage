@@ -1,0 +1,34 @@
+################################################################################
+# updateCheckImage (Vertifi)
+################################################################################
+[HTTP,POST ,/rdc/sso/mobdep_commit_ifs.ashx,__USER_GUID__,__USER_ID__]
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/xml
+X-Powered-By: ASP.NET
+Server: Sony-PS3
+Date: Fri, 19 Aug 2011 00:47:26 GMT
+
+<?xml version="1.0"?>
+<Response>
+  <MessageValidation>
+    <InputValidation>OK</InputValidation>
+    <KeyValidation>OK</KeyValidation>
+  </MessageValidation>
+  <ImageValidation>
+    <PreProcessing>OK</PreProcessing>
+    <TooDark>Passed</TooDark>
+    <TooLight>Passed</TooLight>
+    <BelowMinSize>Passed</BelowMinSize>
+    <AboveMaxSize>Passed</AboveMaxSize>
+    <UndersizedImage>Passed</UndersizedImage>
+    <OversizedImage>Passed</OversizedImage>
+    <Recognition>OK</Recognition>
+  </ImageValidation>
+  <DepositStatus>
+    <DepositID>1466955</DepositID>
+    <DepositDisposition>Held for Review __USER_GUID__</DepositDisposition>
+  </DepositStatus>
+</Response>
+[/HTTP]
+

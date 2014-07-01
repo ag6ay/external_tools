@@ -1,0 +1,198 @@
+#!/bin/bash 
+#
+#
+#
+# chop_out_actual_data
+#
+#
+# input:  an auditAutomation.log...
+#
+#
+# Now for the 'art' part of this exercise...
+#
+#
+# awk has to step through each line, 
+#    look for the first =
+#    Find the second =, exit loop on line if none
+#    step backwards from the second = to the preceeding space
+#    write out the data from the beginning of the line to right before the first space
+#    remove what has been written out from the line
+# write out what is left on the line
+#
+
+
+infile=${INFILE:-../../logs/auditAutomation.log}
+
+awk '\
+		function filter_mydataname(mydata) {
+			myfield = mydata
+			sub ( /=.*$/, "", myfield)
+			if ( mydata ~ /^Date=/ ) {
+			    rtn_mydata = "Date=__DYNAMIC(IGNORE{})__" CR # known special case...
+			} else if ( mydata ~ /^elapsedTime=/ ) {
+			    rtn_mydata = "elapsedTime=__DYNAMIC(IGNORE{})__" CR # known special case...
+			} else if ( mydata ~ /^timeStamp=/ ) {
+			    rtn_mydata = "timeStamp=__DYNAMIC(IGNORE{})__" CR # known special case...
+			} else if ( mydata ~ /^[^=]*Date[^=]*=/ ) {	# No, we do not know what the BS data for any date is...
+			    rtn_mydata = ""
+			} else if ( mydata ~ /^ofxTid=201[0-9][01][0-9][0-3][0-9]/ ) {	# revisit around 2019.... ;-)
+			    rtn_mydata = ""
+			    if ( RunDateStamp != "" ) {
+				mycheck = "=" RunDateStamp 
+				if ( $mydata ~ mycheck ) {found
+					rtn_mydata = "ofxTid=__DYNAMIC(DATE{0, \"%Y%m%d" substr(mydata, 16)  "\"})__"
+				}
+			    }	
+			} else if ( mydata ~ /^[a-zA-Z]=$/ ) {
+				mydata = mydata "__EMPTY__" CR	# if it is empty... say so...
+			} else if ( mydata == myfield "=" ) {
+				mydata = mydata "__EMPTY__" CR	# if it is empty... say so...
+			} else {
+				rtn_mydata = mydata CR
+			}
+
+			print "mydata = \""  mydata "\" returned \"" rtn_mydata "\"" > dbgout
+			return "SET: " rtn_mydata	# set to conform with build_transactions.pl
+		}
+		function outputLine(myLine) {
+			mylength = length(outputList) + 1
+			outputList[mylength] = myLine
+		}
+		BEGIN {
+			dbgout="/dev/null"
+			#dbgout="/dev/stderr"
+			true="true"
+			false="false"
+			data="data"
+			null="null"
+			CR="\r"
+			state=""
+			RunDateStamp_YYYYMMDD=""
+			tcCount=0
+			TC=""
+			tsCount=0
+			newLineCount=0
+			fieldCount=0
+			outputList[1] = ""
+			delete outputList[1]
+		}
+		END {
+			# actual output routine... Sorry!
+			for (tc in TCList) {
+				print "TESTCASE: ", tc  CR # , TCList[tc]
+			}
+			mylimit = length (outputList)
+			for (i=1; i<= mylimit; i++ ) {
+				print outputList[i]	# print in order put onto array...
+			}
+			print "NR = " NR > dbgout
+			print "STAT: INFILE: " FILENAME CR	# yes, playing fast and loose with the lineCommand ordering...
+			print "STAT: Number of input lines: " NR CR
+			print "STAT: Number of unique TCs found in input: " tcCount CR
+			print "STAT: Number of new AR lines processed: " newLineCount CR
+			print "STAT: Number of new AR fields processed: " fieldCount CR
+		}
+		{
+			print "Line: " $0 > dbgout
+			print "state=" state > dbgout
+		}
+		$0 ~ /^TEST BEGIN TIME: / {
+			RunDateStamp=substr($4, 7, 4 ) substr($4, 1, 2) substr ($4, 4, 2)
+			### print "TEST_BEGIN_TIME=" RunDateStamp
+		}
+		$1 == "TEST_CASE_ID:" {
+			if ( $2 != TC ) {
+				tcCount=tcCount+1
+			}
+			TC = $2
+			split ($2, lclarray, "=")
+			TCList[lclarray[1]]++
+			# print "lclarray[1] = """, lclarray[1], """ ", TCList[lclarray[1]]
+			#mylength = length(outputList) + 1
+			#outputList[mylength] = "lclarray[1] = """ lclarray[1] """ " TCList[lclarray[1]]
+			next;
+		}
+		$1 == "STEP_ID:" {
+			TS = $2
+			tsCount=tsCount+1
+			next;
+		}
+		$1 == "ACTUAL" && $2 == "RESULTS:" {
+			state=data
+			next
+		}
+		### $1 == "ACTUAL_RESULT:" { # DEBUG...
+		### 	print "ACTUAL_RESULT: ---> DEBUG" > dbgout
+		### 	state=data
+		### 	next
+		### 	}
+		state != data {
+			next
+			}
+		NF == 0 {
+			state=null
+			next
+			}
+		{ 
+			print TC, TS ":", $0 > dbgout
+			outputLine( "TC: TEST_CASE_ID=" TC CR )
+			outputLine( "TS: STEP_ID=" TS CR )
+			foundOne=true
+			newLineCount=newLineCount+1
+			ws=$0
+			do {
+				print TC, TS ":", "ws:" ws > dbgout
+				mystr=""
+				index1a=0
+				index2=0
+				index1=index(ws, "=")
+				#
+				# from index1 find first space, then find next =, then backtrack to preceeding space
+				#
+				# to handle ContentType=text/xml;charset=utf-8 NextItem=...
+				#
+				# the original code looking for the next "=" after the first "=" was just causing all kinds of issues...
+				#
+				# as it is now... there will be a problem with values that contain both spaces and equals
+				#
+				# the best solution:  fix automation.pl so it will output a better "actual result" for parsing...
+				#
+				#
+
+				index1a=index(substr(ws, index1+1), " ")
+				if ( index1a == 0 ) {	# no space after "=" -> EOL
+					foundOne=false
+					break
+				}
+				
+				index2=index(substr(ws, index1+index1a+1), "=")
+				if ( index2 == 0 ) {	# no = after = ... -> EOL
+					foundOne=false
+					break
+				} else {
+				     index2 += index1 + index1a
+				}
+				
+				print "first = at", index1,substr(ws, index1,1), "index1a", index1a, "second", index2, substr(ws,index2,1) > dbgout
+				for ( i= index2-1; i> index1; i-- ) {
+					if ( substr(ws, i,1) == " " ) {
+						break
+					}
+				}
+				mydata=substr(ws, 1, i-1)
+				print "mydata = \"" mydata "\"" > dbgout
+				mydata=filter_mydataname(mydata)
+				if ( mydata != "" ) {
+					fieldCount=fieldCount+1
+					outputLine( mydata )
+				}
+				ws=substr(ws, i+1)
+			 } while (foundOne == true)
+			sub(/ $/, "", ws)
+			mydata=filter_mydataname(ws)
+			outputLine( mydata )
+			fieldCount=fieldCount+1
+			
+		}
+		' ${infile}
+

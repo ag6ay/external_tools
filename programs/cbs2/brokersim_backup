@@ -1,0 +1,224 @@
+#!/bin/bash
+#
+#
+#
+# brokersim_backup
+#
+# back up brokersim into P4
+#
+#
+instance='cbs2-qa'
+TERM=xterm
+
+MAIL_DISTRO_LIST=${MAIL_DISTRO_LIST:-james_variot@intuit.com, amzad_hossain@intuit.com, matthew_greenberg@intuit.com, bernardo_martinez@intuit.com}
+
+i_am=$0
+
+case "X${i_am}" in
+
+        X/*)
+                i_am_from=$(dirname ${i_am})
+                i_am=$(basename ${i_am})
+                ;;
+        *)
+                i_am="`pwd`/$i_am"
+                i_am_from=$(dirname ${i_am})
+                i_am=$(basename ${i_am})
+                ;;
+esac
+
+i_am_from=$(cd $i_am_from ; pwd)        # pretty it up, just in case anyone notices...
+
+
+id_string=$(id | cut -f1 -d' ')
+
+
+if [ "X$id_string" != "Xuid=0(root)" ] ; then
+	echo
+	echo "user '$id_string'"
+	echo
+	echo This script must be executed as root.
+	echo
+	echo Please use pbrun or pmrun to get there...
+	echo
+	echo
+	exit 2
+fi
+
+whoami=$(who am i | awk '{print $1}')
+whoami_p4=$whoami
+
+CBS2_VERSION=1.6.3
+
+case $whoami in
+    root)
+	echo " "
+	echo "$i_am may not be run either logged into root or 'su - root'."
+	echo " "
+	echo "It may only be run, as root, by 'pbrun root' or 'su root'."
+	echo " "
+	exit 2
+	;;
+    amho3827)
+	whoami_p4=ahossain
+	;;
+    bmartin1)
+	whoami_p4=bmartinez1
+	;;
+    java8858)
+	whoami_p4=jvariot
+	;;
+    magr8952)
+	echo " "
+	echo " "
+	echo "User $whoami inhibited from running $i_am until p4 loginid is confirmed."
+	echo " "
+	echo " "
+	exit 2
+	;;
+    *)
+	:
+	# IFS and INTUIT usernames match...
+	;;
+esac
+
+
+AIXUSERNAME=$whoami
+AIXGROUP=staff
+P4LOGNAME=$whoami_p4
+P4USER=$P4LOGNAME
+P4PORT=p4:1777
+P4CLIENT=$P4LOGNAME-fusion5-CBS2-$CBS2_VERSION-brokersim_backup
+
+projSuff='_cbs2'
+
+eval userHome=~${AIXUSERNAME}
+P4workspaceDir=${userHome}/perforce/$P4CLIENT/work 
+
+export P4LOGNAME P4USER P4PORT P4CLIENT
+
+echo -n "P4 depot '$P4PORT' login '$P4LOGNAME' " ; p4 login
+stat=$?
+chown -R ${AIXUSERNAME}:${AIXGROUP} $userHome/.p4tickets
+if [ $stat -ne 0 ] ; then
+	echo "Exiting..."
+	exit $stat
+fi
+
+( \
+
+	if [ ! -d $P4workspaceDir ] ; then
+		echo 
+		echo 
+		echo Creating workspace $P4CLIENT in $P4workspaceDir
+		echo 
+		echo 
+		mkdir -p $P4workspaceDir
+		( p4 workspace -i ) <<-_EOF_
+# A Perforce Client Specification.
+#
+#  Client:      The client name.
+#  Update:      The date this specification was last modified.
+#  Access:      The date this client was last used in any way.
+#  Owner:       The user who created this client.
+#  Host:        If set, restricts access to the named host.
+#  Description: A short description of the client (optional).
+#  Root:        The base directory of the client workspace.
+#  AltRoots:    Up to two alternate client workspace roots.
+#  Options:     Client options:
+#                      [no]allwrite [no]clobber [no]compress
+#                      [un]locked [no]modtime [no]rmdir
+#  SubmitOptions:
+#                      submitunchanged/submitunchanged+reopen
+#                      revertunchanged/revertunchanged+reopen
+#                      leaveunchanged/leaveunchanged+reopen
+#  LineEnd:     Text file line endings on client: local/unix/mac/win/share.
+#  View:        Lines to map depot files into the client workspace.
+#
+# Use 'p4 help client' to see more about client views and options.
+
+Client: $P4CLIENT
+
+Update: 2011/12/14 17:15:10
+
+Access: 2011/12/14 17:13:04
+
+Owner:  $P4LOGNAME
+
+Host:   fusion5
+
+Description:
+        Created by $P4LOGNAME.
+
+Root:   $P4workspaceDir
+
+Options:        noallwrite noclobber nocompress unlocked nomodtime normdir
+
+SubmitOptions:  submitunchanged
+
+LineEnd:        local
+
+View:
+	        //depot/QA/test-data/cbs2/... //$P4CLIENT/test-data/cbs2/...
+_EOF_
+		stat=$?
+		if [ $stat -ne 0 ] ; then
+			echo 
+			echo 
+			echo Unable to create workspace "'$P4CLIENT', stat=$stat."
+			echo 
+			echo 
+			exit $stat
+		fi
+		cd $P4workspaceDir
+		p4 sync 
+
+		chown -R ${AIXUSERNAME}:${AIXGROUP} $P4workspaceDir/../..
+	fi
+
+	ls -ld $P4workspaceDir
+	cd $P4workspaceDir
+	pwd
+
+	p4 sync -f $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg#head
+
+	echo diff /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg 
+	diff /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg 
+	stat=$?
+
+	echo "stat=$stat"
+	if [ $stat -eq 0 ] ; then
+		echo 
+		echo "brokersim${projSuff}.cfg not changed.  Not backing it up."
+		echo 
+		exit 0
+	fi
+
+	if [ $stat -ne 1 ] ; then
+		echo 
+		echo "brokersim${projSuff}.cfg diff returned exit status = $stat.  Not backing it up."
+		echo 
+		exit $stat
+	fi
+
+	p4 edit $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg
+
+	echo 
+	echo ls -ltr /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg
+	ls -ltr /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg
+	echo 
+	echo cp /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg
+	cp /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg
+	stat=$?
+	if [ $stat -ne 0 ] ; then
+		echo 
+		echo 
+		echo cp /hb/automatedev3/brokersim${projSuff}.cfg $P4workspaceDir/test-data/cbs2/host_data/$CBS2_VERSION/brokersim${projSuff}.cfg -- failed stat = $stat
+		echo 
+		echo 
+		exit $stat
+	fi
+	echo 
+	p4 submit -d "brokersim${projSuff}.cfg backup at `date +%Y%m%d_%H%M`."
+) 2>&1 | tee /dev/tty | tee /tmp/$(basename $0)_${instance}.log | mail -s "Brokersim backup for ${instance} on $(hostname)" ${MAIL_DISTRO_LIST}
+echo "P4CLIENT = '$P4CLIENT'"

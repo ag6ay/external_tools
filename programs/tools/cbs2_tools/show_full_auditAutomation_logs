@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+#
+# show_full_auditAutomation_logs
+#
+#
+#
+# show a list of the logs from full automation runs that are stored in ../../logs/archive/*auditAutomation.log
+#
+# note:  This will not find and gzip'ed or bzip2'd log files...
+#
+#
+if [ "X$1" = "X" ] ; then
+    arg1=date
+else
+    arg1=${1}
+fi
+
+arg1=$(echo $arg1 | sed -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/')
+
+echo "Sort order is '$arg1'"
+
+dir=$(pwd)
+dir=$(cd $dir/../../logs/archive ; pwd)
+
+echo $dir
+
+case $arg1 in
+    date)
+	echo "DATE"
+	ls -ltrd ${dir}/201[1-9]*_auditAutomation.log | awk '$5 < 70000000 { next } { $1="" ; $2=""; $3=""; $4="" ; printf "%15d %s\n", $5, $NF  }' | sort --key=2
+	;;
+    size)
+	ls -ltrd ${dir}/201[1-9]*_auditAutomation.log | awk '$5 < 70000000 { next } { $1="" ; $2=""; $3=""; $4="" ; printf "%15d %s\n", $5, $NF  }' | sort -n
+	;;
+    *)
+	echo "Invalid control spec '$1' -- either date or size..."
+	;;
+esac

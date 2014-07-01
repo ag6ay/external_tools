@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+#
+#
+# extract_cbs2_log
+#
+# Try to get an intelligent 'slice' of the cbs2.log file
+#
+#
+# instead of:
+#       1) reading the whole thing via vi[m](1)
+#       2) reading the whole thing via less(1)
+#       3) trying to do something with tail(1) and manually scrolling the screen...
+#
+#
+#
+INFILE=${INFILE:-cbs2.log}
+OUTFILE=${OUTFILE:-${HOME}/log/$(basename $INFILE)}
+
+outdir=$(dirname $OUTFILE)
+
+if [ ! -d $outdir ] ; then
+        echo "Output directory of '$outdir' does not exist..."
+        exit 2
+fi
+
+INDIR=$(dirname $INFILE)
+echo "INDIR=$INDIR"
+
+oldFileNumber=$(ls ${INDIR}/ | grep cbs2.`date +"%F"`.*.log.gz  | cut -d . -f 3 | sort -n | tail -1 )
+if [ "x$oldFileNumber" = "x" ]; then
+   #No log.gz files for the current date exist
+   oldFileNumber=-1
+   lastlogfile=""
+else
+   lastlogfile="cbs2."$(date +"%F").$oldFileNumber.log.gz
+fi
+
+echo "Last log file: $lastlogfile"
+
+myUserNameis=$(who am i | cut -f1 -d' ')
+
+if [ "X$BEGINLINECOUNT" = "X" ] ; then
+        echo ' '
+        echo 'Getting the beginning line count...'
+        beginLine=$(wc -l ${INFILE} | awk '{print $1}')
+else
+        beginLine=${BEGINLINECOUNT}
+fi
+
+echo ' '
+echo "I am '$myUserNameis' for lines in $INFILE beginning at $beginLine into $OUTFILE"
+echo ' '
+/bin/echo -e -n "Hit enter to continue> "
+read getline
+echo ' '
+
+lastNumber=$(ls ${INDIR}/ | grep cbs2.`date +"%F"`.*.log.gz  | cut -d . -f 3 | sort -n | tail -1 )
+if [ "x$lastNumber" = "x" ]; then
+   recentlastlogfile=""
+else
+   recentlastlogfile="cbs2."$(date +"%F").$lastNumber.log.gz
+fi
+echo "recentlastlogfile=$recentlastlogfile"
+
+if [ "$lastlogfile" = "$recentlastlogfile" ] 
+then
+   #no new log.gz files were created
+   echo "Extracting lines starting at $beginLine from $INFILE to $OUTFILE"
+   echo ' '
+   sed -e "1,${beginLine}d" ${INFILE} > ${OUTFILE}
+else
+    echo "new log files were created"
+    echo "old File Number=$oldFileNumber"
+    echo "new File Number=$lastNumber"
+    startNumber=$(expr $oldFileNumber + 1)
+    echo "Capturing since line ${beginLine} from $INDIR/cbs2.`date +\"%F\"`.$startNumber.log.gz"
+    zcat $INDIR/cbs2.`date +"%F"`.$startNumber.log.gz | sed -e "1,${beginLine}d" > ${OUTFILE}
+    while [ $startNumber -lt $lastNumber ]
+    do
+       zcat $INDIR/cbs2.`date +"%F"`.$startNumber.log.gz >> ${OUTFILE}
+       echo "Contents from $INDIR/cbs2.`date +''%F''`.$startNumber.log.gz appended."
+       let startNumber+=1
+    done
+    cat $INFILE >> ${OUTFILE}
+    echo "Contents from $INFILE appended."
+fi
+echo Lines Extracted: $(wc -l $OUTFILE)    

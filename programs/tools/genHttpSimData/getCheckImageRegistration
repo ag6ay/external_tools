@@ -1,0 +1,23 @@
+################################################################################
+# getCheckImageRegistration (Vertifi)
+################################################################################
+[HTTP,POST ,/rdc/sso/mobdep_regquery_ifs.ashx,__USER_ID__]
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/xml
+X-Powered-By: ASP.NET
+Server: Sony-PS3
+Date: Fri, 19 Aug 2011 00:47:26 GMT
+
+<?xml version="1.0"?>
+<Response>
+  <MessageValidation>
+    <InputValidation>OK</InputValidation>
+  </MessageValidation>
+  <UserValidation>
+    <LoginValidation>OK</LoginValidation>
+    <DepositLimit>2000.00</DepositLimit>
+  </UserValidation>
+</Response>
+[/HTTP]
+

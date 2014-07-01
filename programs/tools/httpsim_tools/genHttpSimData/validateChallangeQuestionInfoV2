@@ -1,0 +1,16 @@
+################################################################################
+#  validateChallangeQuestionInfoV2 (CBS2)
+################################################################################
+[HTTP{DELAY=0.0},POST ,/cbs2/v2/fis/__FIID__/fiCustomers/__USER_GUID__/challengeQuestionInfo/validate]
+HTTP/1.1 204 No Content
+Connection: close
+Date: Sun, 27 Mar 2011 21:35:57 GMT
+Server: Apache-Coyote/1.1
+Content-Length: 0
+Client-Date: Sun, 27 Mar 2011 21:35:57 GMT
+Client-Peer: 192.168.227.221:8280
+Client-Response-Num: 1
+Intuit_tid: abcdef
+X-Powered-By: DI - An Intuit Company
+
+[/HTTP]

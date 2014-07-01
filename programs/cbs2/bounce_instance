@@ -1,0 +1,54 @@
+#!/bin/bash
+
+
+instance=${1:-cbs2-qa}
+MAIL_DISTRO_LIST=${MAIL_DISTRO_LIST:-james_variot@intuit.com, amzad_hossain@intuit.com, matthew_greenberg@intuit.com, bernardo_martinez@intuit.com, poshan_sharma@intuit.com}
+
+
+i_am=$0
+
+case "X${i_am}" in
+
+	X/*)
+		i_am_from=$(dirname ${i_am})
+		i_am=$(basename ${i_am})
+		;;
+	*)
+		i_am="`pwd`/$i_am"
+		i_am_from=$(dirname ${i_am})
+		i_am=$(basename ${i_am})
+		;;
+esac
+
+i_am_from=$(cd $i_am_from ; pwd)	# pretty it up, just in case anyone notices...
+
+
+( \
+
+WrkDir=/opt/jboss/${instance}-home/server/default/env
+
+cd $WrkDir
+
+echo " "
+echo " "
+echo "Current instance"
+echo " "
+
+(ps -ef ; ps -ef ; ps -ef ) | grep "${instance}-home" | fgrep -v grep | sort -u
+
+echo " "
+echo " "
+echo " stopping jboss ${instance}"
+su jboss -c "cd /opt/jboss/${instance}-home/bin/ ; ./jb.pl stop ${instance}"
+
+echo " starting jboss ${instance}"
+su jboss -c "cd /opt/jboss/${instance}-home/bin/ ; ./jb.pl start ${instance}"
+
+echo " "
+echo " "
+echo "New instance"
+echo " "
+
+(ps -ef ; ps -ef ; ps -ef ) | grep "${instance}-home" | fgrep -v grep | sort -u
+
+) 2>&1 | tee /dev/tty | tee /tmp/$(basename $0)_${instance}.log | mail -s "Bounced ${instance} on $(hostname)" ${MAIL_DISTRO_LIST}

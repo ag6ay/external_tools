@@ -1,0 +1,470 @@
+[H[2J
+Testing on qa_qdc_SL1: http://cbs-sl1-qal-qydc.banking.intuit.net:80
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on qa_qdc_300: http://pqalcbsas300.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on qa_qdc_301: http://pqalcbsas301.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on qa_qdc_SL2: http://cbs-sl2-qal-qydc.banking.intuit.net:80
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to cbs-sl2-qal-qydc.banking.intuit.net port 80 (#0)
+*   Trying 10.137.72.30...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to cbs-sl2-qal-qydc.banking.intuit.net (10.137.72.30) port 80 (#0)
+> GET /cbs2/v2/fis/DI0508 HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: cbs-sl2-qal-qydc.banking.intuit.net
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1650
+< Date: Mon, 26 Nov 2012 20:43:29 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1650  100  1650    0     0     53      0  0:00:31  0:00:30  0:00:01   374* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an internal error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel: FAILED
+Expected: < HTTP/1.1 204 No Content
+Instead we got: * About to connect() to cbs-sl2-qal-qydc.banking.intuit.net port 80 (#0)
+*   Trying 10.137.72.30...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to cbs-sl2-qal-qydc.banking.intuit.net (10.137.72.30) port 80 (#0)
+> DELETE /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00/invalidateusercache HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: cbs-sl2-qal-qydc.banking.intuit.net
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1661
+< Date: Mon, 26 Nov 2012 20:44:05 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1661  100  1661    0     0     54      0  0:00:30  0:00:30 --:--:--   395* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>invalidateUserCache:Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on qa_qdc_302: http://pqalcbsas302.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on qa_qdc_303: http://pqalcbsas303.corp.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> GET /cbs2/v2/fis/DI0508 HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1650
+< Date: Mon, 26 Nov 2012 20:44:43 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1650  100  1650    0     0     54      0  0:00:30  0:00:30 --:--:--   389* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an internal error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> GET /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00?fiCustomerIdType=GUID HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1642
+< Date: Mon, 26 Nov 2012 20:45:14 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1642  100  1642    0     0     53      0  0:00:30  0:00:30 --:--:--   376100  1642  100  1642    0     0     53      0  0:00:30  0:00:30 --:--:--   488* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>:Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 getAccountsV2: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> GET /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00/accounts?fiCustomerIdType=GUID HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> getExportAcctNum: true
+> getCrossAccts: true
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1650
+< Date: Mon, 26 Nov 2012 20:45:44 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1650  100  1650    0     0     54      0  0:00:30  0:00:30 --:--:--   384* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an internal error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 getFinancialInfoV2: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> GET /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00/financialInfo?fiCustomerIdType=GUID HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> getExportAcctNum: true
+> getCrossAccts: true
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1642
+< Date: Mon, 26 Nov 2012 20:46:15 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1642  100  1642    0     0     54      0  0:00:30  0:00:30 --:--:--   385* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>:Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 getTransactionsV2: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> GET /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00/accounts/Rws6a2s-xiRlmhzg9GlV325Mdug4ZvmbKLzi3z3aP0o/transactions?fiCustomerIdType=GUID HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> intuit_session: sessionId00001
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1642
+< Date: Mon, 26 Nov 2012 20:46:45 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1642  100  1642    0     0     54      0  0:00:30  0:00:30 --:--:--   384* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>:Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 invalidateUserCacheDel: FAILED
+Expected: < HTTP/1.1 204 No Content
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> DELETE /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00/invalidateusercache HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1661
+< Date: Mon, 26 Nov 2012 20:47:16 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1661  100  1661    0     0     54      0  0:00:30  0:00:30 --:--:--   382* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>invalidateUserCache:Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 deleteAccountUSRSUM: FAILED
+Expected: < HTTP/1.1 204 No Content
+Instead we got: * About to connect() to pqalcbsas303.corp.intuit.net port 8080 (#0)
+*   Trying 10.137.82.200...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pqalcbsas303.corp.intuit.net (10.137.82.200) port 8080 (#0)
+> DELETE /cbs2/v2/fis/DI0508/fiCustomers/c0a8e3260016a0a44b7071c70b825c00/accounts/usrsum?fiCustomerIdType=GUID HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pqalcbsas303.corp.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1650
+< Date: Mon, 26 Nov 2012 20:47:46 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1650  100  1650    0     0     54      0  0:00:30  0:00:30 --:--:--   389* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an internal error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>Internal System Error.</errorMessage></errorInfo></Status>
+
+
+Testing on perf_qdc_SL1: http://cbs-sl1-prf-qydc.banking.intuit.net:80
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2: FAILED
+Expected: < HTTP/1.1 200 OK
+Instead we got: * About to connect() to cbs-sl1-prf-qydc.banking.intuit.net port 80 (#0)
+*   Trying 10.137.64.98...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to cbs-sl1-prf-qydc.banking.intuit.net (10.137.64.98) port 80 (#0)
+> GET /cbs2/v2/fis/DI7033 HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: cbs-sl1-prf-qydc.banking.intuit.net
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1650
+< Date: Mon, 26 Nov 2012 20:47:47 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1650  100  1650    0     0   3897      0 --:--:-- --:--:-- --:--:--  7674* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an internal error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>Internal System Error.</errorMessage></errorInfo></Status>
+
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on perf_qdc_300: http://pprfcbsas300.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on perf_qdc_301: http://pprfcbsas301.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM: FAILED
+Expected: < HTTP/1.1 204 No Content
+Instead we got: * About to connect() to pprfcbsas301.ie.intuit.net port 8080 (#0)
+*   Trying 10.137.80.16...   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0connected
+* Connected to pprfcbsas301.ie.intuit.net (10.137.80.16) port 8080 (#0)
+> DELETE /cbs2/v2/fis/DI7033/fiCustomers/c0a8f23a000059ba49b15a21190bae00/accounts/usrsum?fiCustomerIdType=GUID HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8r zlib/1.2.5
+> Host: pprfcbsas301.ie.intuit.net:8080
+> Accept: */*
+> Authorization: cbs2testclient
+> intuit_appId: autoTest
+> intuit_offeringId: autoTest
+> intuit_originatingIp: 1.1.1.1
+> intuit_tid: 1234abcd
+> 
+< HTTP/1.1 500 Internal Server Error
+< Server: Apache-Coyote/1.1
+< intuit_tid: 1234abcd
+< Content-Type: application/xml
+< Content-Length: 1650
+< Date: Mon, 26 Nov 2012 20:48:07 GMT
+< Connection: close
+< 
+{ [data not shown]
+100  1650  100  1650    0     0   6293      0 --:--:-- --:--:-- --:--:-- 12222* Closing connection #0
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Status xmlns="http://schema.intuit.com/fs/common/v2" xmlns:ns2="http://schema.intuit.com/domain/banking/fiCustomer/v2" xmlns:ns3="http://schema.intuit.com/domain/banking/notification/v2" xmlns:ns4="http://schema.intuit.com/domain/banking/challengeQuestionInfo/v2" xmlns:ns5="http://schema.intuit.com/domain/banking/account/v2" xmlns:ns6="http://schema.intuit.com/domain/banking/fundingAccount/v2" xmlns:ns7="http://schema.intuit.com/domain/banking/financialInstitution/v2" xmlns:ns8="http://schema.intuit.com/domain/banking/accountTransaction/v2" xmlns:ns9="http://schema.intuit.com/domain/banking/transfer/v2" xmlns:ns10="http://schema.intuit.com/domain/banking/mobileMoney/v1" xmlns:ns11="http://schema.intuit.com/domain/billpay/billPayment/v2" xmlns:ns12="http://schema.intuit.com/domain/banking/scheduledTransfer/v2" xmlns:ns13="http://schema.intuit.com/domain/banking/achId/v2" xmlns:ns14="http://schema.intuit.com/domain/banking/image/v2" xmlns:ns15="http://schema.intuit.com/domain/banking/preference/V2" xmlns:ns16="http://schema.intuit.com/platform/integration/identity/authToken/v2" xmlns:ns17="http://schema.intuit.com/domain/banking/financialInfo/v2" xmlns:ns18="http://schema.intuit.com/domain/banking/configuration/v2" xmlns:ns19="http://schema.intuit.com/domain/banking/batchProcessInfo/v2" xmlns:ns20="http://schema.intuit.com/domain/banking/check/v2"><statusMessage>There was an internal error executing the request</statusMessage><errorInfo><errorType>SYSTEM_ERROR</errorType><errorCode>10001</errorCode><errorMessage>Internal System Error.</errorMessage></errorInfo></Status>
+
+
+Testing on stagg_lvdc_400: http://ppdscbsas400.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on uat_qdc_SL1: http://cbs-sl1-e2e-qydc.banking.intuit.net:80
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on uat_qdc_300: http://pe2ecbsas300.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
+
+Testing on uat_qdc_301: http://pe2ecbsas301.ie.intuit.net:8080
+
+CBS2 getServiceStatusV2 test result:          	     PASSED
+CBS2 getFinancialInstitutionV2 test result:          PASSED
+CBS2 getFICustomer test result:                      PASSED
+CBS2 getAccountsV2 test result:                      PASSED
+CBS2 getFinancialInfoV2 test result:                 PASSED
+CBS2 getTransactionsV2 test result:                  PASSED
+CBS2 invalidateUserCacheDel test result:             PASSED
+CBS2 deleteAccountUSRSUM test result:                PASSED
